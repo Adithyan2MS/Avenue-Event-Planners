@@ -1,0 +1,151 @@
+<section class="contactHeader"
+  style="background-repeat: no-repeat; background-position: center top; background-size: cover; height: 300px;">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6 p-5 hidden">
+
+      </div>
+      <div class="col-md-6">
+        <h1 class="text-center text-white" style="font-size: 90px;">CONTACT</h1>
+      </div>
+    </div>
+  </div>
+</section>
+<section style=" background-image: linear-gradient( #ffe6ee,#cce6ff);">
+  <div class="container d-flex justify-content-center">
+    <div class="row form-div">
+      <div class=" d-flex justify-content-center">
+        <h1 class="section-heading text-primary">LET'S GET STARTED</h1>
+      </div>
+      <div class="text-center">
+        <p class="form-para">Thank you for your interest in ours.</p>
+        <p class="form-para">We would be honored to be a part of your special occasion. Please fill out our contact form
+          with your information and the details of your event.</p>
+      </div>
+      <div class="row m-2">
+        <div class="col-md-8">
+          <form action="/contact/addDetails" method="post" class="form-content"
+            enctype="application/x-www-form-urlencoded">
+
+            <label class="form-label" for="firstName">First Name</label>
+            <input name="firstName" class="form-control" type="text" id="fname" placeholder="John" required>
+            <br>
+
+            <label class="form-label" for="lastName">Last Name</label>
+            <input name="lastName" class="form-control" type="text" id="lname" placeholder="Doe" required>
+            <br>
+
+            <label class="form-label" for="email">Email Address</label>
+            <input name="email" class="form-control" type="email" id="email" placeholder="jdoe@test.com" required>
+            <br>
+            <label class="form-label" for="phoneNumber">Phone Number</label>
+            <input name="phoneNumber" class="form-control" type="tel" id="phone" placeholder="" required>
+            <br>
+            <label class="form-label" for="howHearAboutUs">How did you hear about us?</label>
+            <select name="howHearAboutUs" class="form-control" required id="source">
+              <option value="null">Please Select</option>
+              <option value="Referral">Referral</option>
+              <option value="WeddingWire">WeddingWire</option>
+              <option value="The Knot">The Knot</option>
+              <option value="Here Comes the Guide">Here Comes the Guide</option>
+              <option value="Eventective">Eventective</option>
+              <option value="Social Media">Social Media</option>
+              <option value="Phone Call ">Phone Call </option>
+              <option value="Google ">Google </option>
+              <option value="Other (post in comments)">Other (post in comments)</option>
+            </select>
+            <br>
+
+            <label class="form-label" for="eventType">Type of Event</label>
+            <select name="eventType" class="form-control" id="event-type" required>
+              <option value="null">Please Select</option>
+              <option value="Wedding">Wedding</option>
+              <option value="Rehearsal Dinner">Rehearsal Dinner</option>
+              <option value="Corporate or Social">Corporate or Social</option>
+            </select>
+            <br>
+
+            <label class="form-label" for="date">Requested Date</label>
+            <input name="date" class="form-control" type="text" id="requested-date" placeholder="" required>
+            <br>
+
+            <label class="form-label" for="guestCount">Estimated Guest Count</label>
+            <select name="guestCount" class="form-control" id="guest-count" required>
+              <option value="0-50">0-49</option>
+              <option value="51-74">50-74</option>
+              <option value="75-99">75-99</option>
+              <option value="100-124">100-124</option>
+              <option value="125-149">125-149</option>
+              <option value="150-174">150-174</option>
+              <option value="175-199">175-199</option>
+              <option value="200-224">200-224</option>
+              <option value="225-249">225-249</option>
+              <option value="250-299">250-299</option>
+              <option value="300-349">300-349</option>
+              <option value="350-399">350-399</option>
+              <option value="400-449">400-449</option>
+              <option value="450+">450+</option>
+            </select>
+            <br>
+
+            <label class="form-label" for="additionalNotes">Additional Notes</label>
+            <br>
+            <textarea name="additionalNotes" class="form-control" id="notes" placeholder="Special requests..."
+              required></textarea>
+            <br>
+
+            <button type="submit" class="btn btn-primary" id="submitForm" onclick="giveAlert()">Submit</button>
+
+          </form>
+        </div>
+        <div class="col-md-4">
+          <div class="d-flex justify-content-center bg-light m-4">
+            <div>
+              <div class="">
+                <div class="m-2">
+                  <div class="">
+                    <h6 class="">ADDRESS:</h6>
+                    <div class="">345 Hill Ave. Nashville, TN 37210</div>
+                  </div>
+                  <div class="" style="height:15px;"></div>
+                  <div class="">
+                    <h6 class="">PHONE NUMBER:</h6>
+                    <div class="">xxx-xxx-xxxx</div>
+                  </div>
+                  <div class="" style="height:15px;"></div>
+                    <a href="">
+                      <span>
+                        <i class="fa-brands fa-whatsapp-square" style="font-size:28px;"></i>
+                      </span>
+                    </a>
+                    <a href="">
+                      <span>
+                        <i class="fa-brands fa-instagram-square" style="font-size:28px;"></i>
+                      </span>
+                    </a>
+                    <a href="">
+                      <span>
+                        <i class="fa-brands fa-facebook-square" style="font-size:28px;"></i>
+                      </span>
+                    </a>
+                  <div class="fw-divider-space  fw-custom-space  clearfix" style="height:15px;"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- <div class="d-flex justify-content-center" style="height:500px">
+            <img src="../images/contactSpark.jpg" alt="" style="width:300px; height: 500px;"> -->
+          <!-- </div> -->
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<section style="background-color:  #fcf192;">
+    <div class="row d-flex justify-content-center" style="width: 100%;">
+      <div class="mapouter" >
+        <div class="gmap_canvas"><iframe width="100%" height="500" id="gmap_canvas" src="https://maps.google.com/maps?q=college%20of%20engineering%20and%20management%20punnapra&t=&z=13&ie=UTF8&iwloc=&output=embed" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe><a href="https://www.embedgooglemap.net/blog/divi-discount-code-elegant-themes-coupon/"></a><br><style>.mapouter{position:relative;text-align:right;height:500px;width:1080px;}</style><a href="https://www.embedgooglemap.net"></a><style>.gmap_canvas {overflow:hidden;background:none!important;height:500px;width:1080px;}</style>
+      </div>
+    </div>
+  </div>
+</section>
