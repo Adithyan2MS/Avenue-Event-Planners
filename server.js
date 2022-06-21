@@ -2,6 +2,7 @@ const express = require('express')
 const expressLayout = require('express-ejs-layouts') 
 const path=require('path')
 const indexRouter=require('./routes/index')
+const adminRouter=require('./routes/admin')
 const app=express()
 const bodyParser = require('body-parser')
 
@@ -22,6 +23,7 @@ app.set('view engine','ejs')
 
 
 app.use('/',indexRouter)
+app.use('/admin',adminRouter)
 app.use(express.static(path.join(__dirname, 'public')));
 
 const connectDB = require('./config/db')
