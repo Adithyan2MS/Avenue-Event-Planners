@@ -1,7 +1,57 @@
 <section>
-    <div>
-        <a href="/admin/signup" class="btn btn-primary">Add admin
+    <div class="container">
+        <div class="row text-center">
+            <div class="col-md-4" style="width: 400px;">
+                <div class=" p-4">
+                    <a href="/admin/signup" class="btn btn-primary btn-xl">Add New Admin
+                    </a>
+                </div>
+                <div class=" p-4">
+                    <a href="" class="btn btn-primary btn-xl">Add Team Members
+                    </a>
+                </div>
+                <div class=" p-4">
+                    <a href="" class="btn btn-primary btn-xl">Add Portfolio Images
+                    </a>
+                </div>
+            </div>
+            <div class="col-md-8">
+                
+                    <div class="">
+                        
+                        <table class="table shadow-lg">
+                  <thead>
+                    <tr>
+                        <th scope="col">No</th>
+                       <th scope="col">First Name</th>
+                      <th scope="col">Last Name</th>
+                      <th scope="col">Event type</th>
+                      <th scope="col">Date</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                      <!-- {{#each products}} -->
+                      <% details.forEach((detail)=> { %>
 
-        </a>
+                    <tr>
+                      <th></th>
+                      <td><%= detail.firstName %></td>
+                      <td><%= detail.lastName %></td>
+                      <td><%= detail.eventType %></td>
+                      <td><%= detail.date %></td>
+                      <td><a href="/admin/home/view-details/<%= detail.id %>" class="btn btn-info">View</a></td>
+                      <td><a href="/admin/delete-product/{{this._id}}" class="btn btn-danger" onclick="return confirm('do you wnt to delete {{this._id}}')">Delete</a></td>
+                      
+                
+                
+                    </tr>
+                    <% }) %>
+                    <!-- {{/each}} -->
+                  </tbody>
+                </table>
+                    </div>
+                
+            </div>
+        </div>
     </div>
 </section>

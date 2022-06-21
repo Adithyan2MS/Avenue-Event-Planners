@@ -1,0 +1,26 @@
+<section>
+    <div class="container">
+        <div class="row d-flex justify-content-center">
+            <div class="detail-view">
+                <p><span class="h4">FirstName: </span><%= detail.firstName %> </p>
+                <p><span class="h4">LastName: </span><%= detail.lastName %> </p>
+                <p><span class="h4">Email: </span><%= detail.email %> </p>
+                <p><span class="h4">PhoneNumber: </span><%= detail.phoneNumber %> </p>
+                <p><span class="h4">How do you hear about us: </span><%= detail.howHearAboutUs %> </p>
+                <p><span class="h4">Event Type: </span><%= detail.eventType %> </p>
+                <p><span class="h4">Date: </span><%= detail.date %> </p>
+                <p><span class="h4">Guest Count: </span><%= detail.guestCount %> </p>
+                <p><span class="h4">Additional Notes: </span><%= detail.additionalNotes %> </p>
+
+            </div>
+        </div>
+        <div class="row text-center">
+                <div class="col-md-6 p-2">                
+                    <a href="/admin/home/view-details/<%= detail.id %>" class="btn btn-primary p-2 btn-xl">Accept</a>
+                </div>
+                <div class="col-md-6 p-2">
+                    <a href="/admin/home/view-details/<%= detail.id %>" class="btn btn-danger p-2 btn-xl">Reject</a>
+                </div>
+            </div>
+    </div>
+</section>

@@ -11440,6 +11440,13 @@ header.masthead {
   width: 100%;
   /* The width is the width of the web page */
 }
+.detail-view{
+  font-size: 20px;
+}
+.homebtn{
+  width: 250px;
+  font-size: 40px;
+}
 .service-view{
   background-image: url("../images/flower1.jpg");
   background-size: cover;
