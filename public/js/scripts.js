@@ -6,6 +6,8 @@
 //
 // Scripts
 // 
+
+
 function giveAlert() {
     alert("Details Added Succesfully!");
 }

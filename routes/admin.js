@@ -2,7 +2,7 @@ const { response } = require('express')
 const express = require('express')
 const router = express.Router()
 
-var helper = require('../helpers/helper') 
+var helper = require('../helpers/admin-helper') 
 
 router.get('/',(req,res)=>{
     res.render('admin/login',{layout: 'layouts/adminLayout.ejs'})
@@ -49,6 +49,9 @@ router.get('/home/view-details/:id',async(req,res)=>{
         res.render('admin/view-details',{layout: 'layouts/adminLayout.ejs',detail})
 
     // console.log(req.params.id);
+})
+router.get('/schedules',(req,res)=>{
+    res.render('admin/schedules',{layout: 'layouts/scheduleLayout.ejs'})
 })
 
 

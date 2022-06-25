@@ -1,4 +1,4 @@
-const userDetailModel = require("../models/userdetails")
+const eventDetailModel = require("../models/eventdetails")
 const AdminDetailModel = require("../models/admindetails")
 const { response } = require("express")
 const bcrypt = require('bcrypt')
@@ -6,20 +6,6 @@ var ObjectId=require('mongodb').ObjectID
 
 
 module.exports={
-    addDetails:(detail)=>{
-        return new Promise(async(resolve,reject)=>{
-            var DetailModel = new userDetailModel(detail)
-            await DetailModel.save((err,data)=>{
-                if(err){
-                    console.error(err);
-                }
-                else{
-                    console.log("data added");
-                    resolve(data)
-                }
-            })
-        })
-    },
     doLogin:(data)=>{
         return new Promise(async(resolve,reject)=>{
             let response={}
@@ -34,12 +20,12 @@ module.exports={
                             resolve(response)
                         }
                         else{
-                            console.log("login failed");
+                            console.log("login failed 3");
                             resolve({status:false})
                         }
                     })
                 }else{
-                    console.log("login failed");
+                    console.log("login failed 4");
                     resolve({status:false})
     
                 }
@@ -64,13 +50,13 @@ module.exports={
     },
     getAllDetails:()=>{
         return new Promise(async(resolve,reject)=>{
-            let details= await userDetailModel.find()
+            let details= await eventDetailModel.find()
             resolve(details)
         })
     },
     getUserDetails:(userId)=>{
         return new Promise(async(resolve,reject)=>{
-            await userDetailModel.findOne({_id:ObjectId(userId)}).then((detail)=>{
+            await eventDetailModel.findOne({_id:ObjectId(userId)}).then((detail)=>{
                 resolve(detail)
             })
         })

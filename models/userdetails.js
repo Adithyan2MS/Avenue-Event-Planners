@@ -1,44 +1,20 @@
 const mongoose = require('mongoose')
 
 const userDetailSchema  = new mongoose.Schema({
-    firstName:{
+    name:{
         type:String,
-        required:true,
-    },
-    lastName:{
-        type:String,
-        required:true,
+        required:true
     },
     email:{
         type:String,
-        required:true,
+        required:true
     },
-    phoneNumber:{
+    password:{
         type:String,
-        required:true,
-    },
-    howHearAboutUs:{
-        type:String,
-        required:true,
-    },
-    eventType:{
-        type:String,
-        required:true,
-    },
-    date:{
-        type:String,
-        required:true,
-    },
-    guestCount:{
-        type:String,
-        required:true,
-    },
-    additionalNotes:{
-        type:String,
-        required:true,
+        required:true
     }
 })
 
-const UserDetailModel=mongoose.model("Detail",userDetailSchema)
+const UserDetailModel=mongoose.model("user",userDetailSchema)
 
 module.exports = UserDetailModel

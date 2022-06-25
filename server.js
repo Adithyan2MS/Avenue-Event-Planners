@@ -5,12 +5,13 @@ const indexRouter=require('./routes/index')
 const adminRouter=require('./routes/admin')
 const app=express()
 const bodyParser = require('body-parser')
+var session=require('express-session')
 
 app.use(bodyParser.urlencoded({
     extended: true
 }));
 app.use(bodyParser.json());
-
+app.use(session({secret:"key",cookie:{maxAge:600000}}))
 
 const PORT = process.env.PORT || 3000
 

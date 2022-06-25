@@ -1,10 +1,16 @@
+const { render } = require('ejs')
 const express=require('express')
 const router = express.Router()
 
-var helper = require('../helpers/helper') 
+var userhelper = require('../helpers/user-helper') 
+
 
 router.get('/',(req,res)=>{
-    res.render('index')
+    let user=req.session.user
+    if(user)
+        console.log("user eru");
+    console.log(user);
+    res.render('index',{user})
 })
 router.get('/contact',(req,res)=>{
     res.render('contact')
@@ -14,7 +20,7 @@ router.get('/services',(req,res)=>{
 })
 router.post('/contact/addDetails',(req,res)=>{
     console.log(req.body);
-    helper.addDetails(req.body).then((data)=>{
+    userhelper.addDetails(req.body).then((data)=>{
        if(data){
         // req.flash("msg","Error Occured");
         // res.locals.messages = req.flash();
@@ -24,6 +30,40 @@ router.post('/contact/addDetails',(req,res)=>{
 })
 router.get('/about',(req,res)=>{
     res.render('about')
+})
+router.get('/socialGathering',(req,res)=>{
+    res.render('social-gathering')
+})
+router.get('/signup',(req,res)=>{
+    res.render('user/signup')
+})
+router.post('/signup',(req,res)=>{
+    userhelper.doSignup(req.body).then((response)=>{
+        if(response)
+        {
+            console.log("new user added");
+            res.redirect('/login')
+        }
+        else{
+            console.log("error");
+        }   
+    })
+})
+router.post('/login',(req,res)=>{
+    userhelper.doLogin(req.body).then((response)=>{
+        if(response.status){
+            req.session.loggedIn=true
+            req.session.user=response.user
+            res.redirect('/')
+        }else{
+            console.log('invalid username or password');
+            res.redirect('login')
+        }
+      })
+})
+
+router.get('/login',(req,res)=>{
+    res.render('user/login')
 })
 
 module.exports=router
