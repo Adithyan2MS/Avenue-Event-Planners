@@ -1,6 +1,21 @@
 <!-- Masthead-->
 <header class="masthead mb-1">
-    
+    <div class="dropdown pb-5">
+        <button class="dropbtn">
+            <% if(user){ %> 
+                <%= user.name %> 
+            <% }else { %> 
+                Account
+            <% } %> 
+        </button>
+        <div class="dropdown-content">
+            <% if(user){ %> 
+                <a href="/logout">logout</a>
+            <% }else { %> 
+                <a href="/login">login</a>
+            <% } %>
+        </div>
+      </div>
     <div class="container">
         
         <div class="masthead-subheading">Avenue Event Planners</div>

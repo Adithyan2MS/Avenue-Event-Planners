@@ -53,6 +53,13 @@ router.get('/home/view-details/:id',async(req,res)=>{
 router.get('/schedules',(req,res)=>{
     res.render('admin/schedules',{layout: 'layouts/scheduleLayout.ejs'})
 })
+router.get('/home/view-details/accept/:id',async(req,res)=>{
+    helper.acceptDetail(req.params.id,req.session.user._id)
+    // var detail = await helper.getUserDetails(req.params.id)
+    // console.log(detail);
+    // res.render('admin/schedules',{layout: 'layouts/adminLayout.ejs',detail})
+
+})
 
 
 module.exports = router

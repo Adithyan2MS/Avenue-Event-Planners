@@ -1,5 +1,7 @@
 const eventDetailModel = require("../models/eventdetails")
 const AdminDetailModel = require("../models/admindetails")
+const AcceptedEventModel = require("../models/acceptedEvent")
+
 const { response } = require("express")
 const bcrypt = require('bcrypt')
 var ObjectId=require('mongodb').ObjectID
@@ -42,6 +44,8 @@ module.exports={
                 else{
                     // console.log("data added");
                     resolve(data)
+                    console.log("gdcutffyh");
+                    console.log(data);
                     // response=true
                     // resolve(response)
                 }
@@ -59,6 +63,35 @@ module.exports={
             await eventDetailModel.findOne({_id:ObjectId(userId)}).then((detail)=>{
                 resolve(detail)
             })
+        })
+    },
+    acceptDetail:(eventId,userId)=>{
+        return new Promise(async(resolve,reject)=>{
+            let eventDetail =await AcceptedEventModel.findOne({user:ObjectId(userId)})
+            if(eventDetail)
+            {
+
+            }
+            else{
+                let eventObj={
+                    user:ObjectId(userId),
+                    events:[ObjectId(eventId)]
+                }
+                var AcceptEvent =  AcceptedEventModel(eventObj)
+                await AcceptEvent.save((err,data)=>{
+                    if(err){
+                        console.error(err);
+                    }
+                    else{
+                        // console.log("data added");
+                        resolve(data)
+                        console.log(data);
+                        // response=true
+                        // resolve(response)
+                    }
+                })
+
+            }
         })
     }
 }

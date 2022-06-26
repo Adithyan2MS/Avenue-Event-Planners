@@ -4,7 +4,14 @@ const router = express.Router()
 
 var userhelper = require('../helpers/user-helper') 
 
-
+const verifyLogin=(req,res,next)=>{
+    if(req.session.loggedIn)
+    {
+        next()
+    }else{
+        res.redirect('/login')
+    }
+}
 router.get('/',(req,res)=>{
     let user=req.session.user
     if(user)
@@ -12,20 +19,21 @@ router.get('/',(req,res)=>{
     console.log(user);
     res.render('index',{user})
 })
+router.get('/logout',(req,res)=>{
+    req.session.destroy()
+    res.redirect('/')
+})
 router.get('/contact',(req,res)=>{
-    res.render('contact')
+    let user = req.session.user
+    res.render('contact',{user})
 })
 router.get('/services',(req,res)=>{
     res.render('services')
 })
-router.post('/contact/addDetails',(req,res)=>{
+router.post('/contact/addDetails',verifyLogin,(req,res)=>{
     console.log(req.body);
-    userhelper.addDetails(req.body).then((data)=>{
-       if(data){
-        // req.flash("msg","Error Occured");
-        // res.locals.messages = req.flash();
+    userhelper.addDetails(req.body,req.session.user._id).then(()=>{
         res.redirect('/contact');
-       }
     })
 })
 router.get('/about',(req,res)=>{

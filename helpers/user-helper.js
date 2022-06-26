@@ -1,22 +1,41 @@
 const eventDetailModel = require("../models/eventdetails")
 const UserDetailModel = require("../models/userdetails")
 const bcrypt=require('bcrypt')
+const EventDetailModel = require("../models/eventdetails")
+var ObjectId=require('mongodb').ObjectID
 
 
 
 module.exports={
-    addDetails:(detail)=>{
+    addDetails:(detail,userId)=>{
         return new Promise(async(resolve,reject)=>{
-            var EventModel = new eventDetailModel(detail)
-            await EventModel.save((err,data)=>{
-                if(err){
-                    console.error(err);
+            let details = await eventDetailModel.findOne({user:ObjectId(userId)})
+            if(details){
+                await EventDetailModel
+                .updateOne({user:ObjectId(userId)},
+                {
+                    $push:{eventdetail:detail}
                 }
-                else{
-                    console.log("data added");
-                    resolve(data)
+                ).then((response)=>{
+                    resolve()
+                })
+            }else
+            {
+                let eventObj={
+                    user:ObjectId(userId),
+                    eventdetail:[detail]
                 }
-            })
+                var EventModel = new eventDetailModel(eventObj)
+                await EventModel.save((err,data)=>{
+                    if(err){
+                        console.error(err);
+                    }
+                    else{
+                        console.log("data added");
+                        resolve()
+                    }
+                })   
+            }
         })
     },
     doSignup:(data)=>{

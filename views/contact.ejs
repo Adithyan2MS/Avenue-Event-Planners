@@ -10,9 +10,17 @@
       </div>
     </div>
   </div>
-</section>  
+</section> 
+
 <section style=" background-image: linear-gradient( #ffe6ee,#cce6ff);">
-  <div class="container d-flex justify-content-center">
+  <% if(!user){ %>
+    <div class=" row d-flex justify-content-center bg-info">
+      <div class=" text-center section-para form-para">Please login to your Account before filling the form!!  <a href="/login">login</a></div>
+      
+    </div>
+    <% } %> 
+  <div class="container d-flex justify-content-center pt-2">
+    
     <div class="row form-div">
       <div class=" d-flex justify-content-center">
         <h1 class="section-heading text-primary">LET'S GET STARTED</h1>
@@ -93,8 +101,9 @@
             <textarea name="additionalNotes" class="form-control" id="notes" placeholder="Special requests..."
               required></textarea>
             <br>
-
-            <button type="submit" class="btn btn-primary" id="submitForm" onclick="giveAlert()">Submit</button>
+            <% if(user){ %>
+              <button type="submit" class="btn btn-primary" id="submitForm" onclick="giveAlert()">Submit</button>
+              <% } %> 
 
           </form>
         </div>
