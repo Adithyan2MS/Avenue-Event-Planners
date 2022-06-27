@@ -25,12 +25,11 @@
                     <table class="table shadow-lg">
                         <thead>
                             <tr>
-                                <th scope="col">user</th>
-                                <th scope="col">N0</th>
-                                <th scope="col">First Name</th>
-                                <th scope="col">Last Name</th>
+                                <th scope="col">No</th>
+                                <th scope="col">PhoneNumber</th>
                                 <th scope="col">Event type</th>
                                 <th scope="col">Date</th>
+                                <th scope="col">Guest Count</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -38,18 +37,13 @@
                             <% details.forEach((detail)=> { %>
 
                                 <tr>
-                                    <th rowspan="<%= detail.eventdetail.length %>">
-                                        <%= detail.user %>
-                                    </th>
+                                    
                                     <% for (var i=0; i < detail.eventdetail.length; i++) { %>
                                         <td>
-                                            <%= i+1 %>
+                                            <!-- <%= i+1 %> -->
                                         </td>
                                         <td>
-                                            <%= detail.eventdetail[i].firstName %>
-                                        </td>
-                                        <td>
-                                            <%= detail.eventdetail[i].lastName %>
+                                            <%= detail.eventdetail[i].phoneNumber %>
                                         </td>
                                         <td>
                                             <%= detail.eventdetail[i].eventType %>
@@ -57,7 +51,10 @@
                                         <td>
                                             <%= detail.eventdetail[i].date %>
                                         </td>
-                                        <td><a href="/admin/home/view-details/<%= detail.eventdetail[i].id %>"
+                                        <td>
+                                            <%= detail.eventdetail[i].guestCount %>
+                                        </td>
+                                        <td><a href="/admin/home/view-details/<%= detail.user %>/<%= detail.eventdetail[i]._id %> "
                                                 class="btn btn-info">View</a></td>
                                         <td><a href="/admin/delete-product/{{this._id}}" class="btn btn-danger"
                                                 onclick="return confirm('do you wnt to delete {{this._id}}')">Delete</a>

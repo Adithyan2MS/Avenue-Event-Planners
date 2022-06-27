@@ -1,9 +1,12 @@
 const eventDetailModel = require("../models/eventdetails")
 const AdminDetailModel = require("../models/admindetails")
 const AcceptedEventModel = require("../models/acceptedEvent")
+const UserDetailModel = require("../models/userdetails")
+
 
 const { response } = require("express")
 const bcrypt = require('bcrypt')
+const { vary } = require("express/lib/response")
 var ObjectId=require('mongodb').ObjectID
 
 
@@ -58,10 +61,36 @@ module.exports={
             resolve(details)
         })
     },
-    getUserDetails:(userId)=>{
+    getEventDetails:(userId,eventId)=>{
         return new Promise(async(resolve,reject)=>{
-            await eventDetailModel.findOne({_id:ObjectId(userId)}).then((detail)=>{
-                resolve(detail)
+            let user = await UserDetailModel.findOne({_id:ObjectId(userId)})
+            let detail = await eventDetailModel.aggregate([
+                {
+                    "$match":{"user":userId}
+                },
+                {
+                    "$unwind":"$eventdetail"
+                },
+                {
+                    "$match":{"eventdetail._id":ObjectId(eventId)}
+                },
+                {
+                    $project:{
+                        _id:0,
+                        userid:userId,
+                        eventid:ObjectId(eventId),
+                        name:user.name,
+                        email:user.email,
+                        phoneNumber:"$eventdetail.phoneNumber",
+                        howHearAboutUs:"$eventdetail.howHearAboutUs",
+                        eventType:"$eventdetail.eventType",
+                        date:"$eventdetail.date",
+                        guestCount:"$eventdetail.guestCount",
+                        additionalNotes:"$eventdetail.additionalNotes"
+                    }
+                }
+            ]).then((detail)=>{
+                resolve(detail[0])
             })
         })
     },

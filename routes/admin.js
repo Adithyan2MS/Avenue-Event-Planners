@@ -23,6 +23,7 @@ router.post('/login',(req,res)=>{
 })
 router.get('/home',async(req,res)=>{
     await helper.getAllDetails().then((details)=>{
+        // console.log(details);
         res.render('admin/home',{layout: 'layouts/adminLayout.ejs',details})
     })
 })
@@ -43,15 +44,21 @@ router.post('/signup',(req,res)=>{
         }   
     })
 })
-router.get('/home/view-details/:id',async(req,res)=>{
-    var detail = await helper.getUserDetails(req.params.id)
+router.get('/home/view-details/:userid/:eventid',async(req,res)=>{
+    // console.log(req.params.userid);
+    // console.log(req.params.eventid)
+    await helper.getEventDetails(req.params.userid,req.params.eventid).then((detail)=>{
         console.log(detail);
         res.render('admin/view-details',{layout: 'layouts/adminLayout.ejs',detail})
+    })
+    // var detail = await helper.getEventDetails(req.params.id)
+    //     console.log(detail);
+    //     
 
-    // console.log(req.params.id);
+    // ;
 })
 router.get('/schedules',(req,res)=>{
-    res.render('admin/schedules',{layout: 'layouts/scheduleLayout.ejs'})
+    res.render('admin/schedules',{layout: 'layouts/adminLayout.ejs'})
 })
 router.get('/home/view-details/accept/:id',async(req,res)=>{
     helper.acceptDetail(req.params.id,req.session.user._id)
