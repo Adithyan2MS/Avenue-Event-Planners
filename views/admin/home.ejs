@@ -27,8 +27,6 @@
                             <tr>
                                 <th scope="col">user</th>
                                 <th scope="col">N0</th>
-                                <th scope="col">First Name</th>
-                                <th scope="col">Last Name</th>
                                 <th scope="col">Event type</th>
                                 <th scope="col">Date</th>
                             </tr>
@@ -39,26 +37,23 @@
 
                                 <tr>
                                     <th rowspan="<%= detail.eventdetail.length %>">
-                                        <%= detail.user %>
+                                        <%= detail.name %><br>
+                                        <%= detail.email %> 
                                     </th>
                                     <% for (var i=0; i < detail.eventdetail.length; i++) { %>
                                         <td>
                                             <%= i+1 %>
                                         </td>
-                                        <td>
-                                            <%= detail.eventdetail[i].firstName %>
-                                        </td>
-                                        <td>
-                                            <%= detail.eventdetail[i].lastName %>
-                                        </td>
+                                        
                                         <td>
                                             <%= detail.eventdetail[i].eventType %>
                                         </td>
                                         <td>
                                             <%= detail.eventdetail[i].date %>
                                         </td>
-                                        <td><a href="/admin/home/view-details/<%= detail.eventdetail[i].id %>"
-                                                class="btn btn-info">View</a></td>
+                                        <td><a href="/admin/home/view-details/<%= detail._id %>"
+                                                class="btn btn-info">View</a>
+                                            </td>
                                         <td><a href="/admin/delete-product/{{this._id}}" class="btn btn-danger"
                                                 onclick="return confirm('do you wnt to delete {{this._id}}')">Delete</a>
                                         </td>

@@ -21,8 +21,11 @@ module.exports={
                 })
             }else
             {
+                let user = await UserDetailModel.findOne({_id:ObjectId(userId)})
                 let eventObj={
-                    user:ObjectId(userId),
+                    id:ObjectId(user.id),
+                    name:user.name,
+                    email:user.email,
                     eventdetail:[detail]
                 }
                 var EventModel = new eventDetailModel(eventObj)

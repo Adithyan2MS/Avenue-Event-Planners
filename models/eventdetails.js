@@ -1,24 +1,20 @@
 const mongoose = require('mongoose')
 
 const eventDetailSchema  = new mongoose.Schema({
-        user:{
+        id:{
             type:String,
             required:true
         },
-        eventdetail:[{
-            
-        firstName:{
+        name:{
             type:String,
-            required:true,
-        },
-        lastName:{
-            type:String,
-            required:true,
+            required:true
         },
         email:{
             type:String,
-            required:true,
+            required:true
         },
+        eventdetail:[
+        {   
         phoneNumber:{
             type:String,
             required:true,

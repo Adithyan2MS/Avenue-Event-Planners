@@ -22,7 +22,10 @@ router.post('/login',(req,res)=>{
 
 })
 router.get('/home',async(req,res)=>{
+    
     await helper.getAllDetails().then((details)=>{
+        console.log(details[0].user);
+        // console.log(details[0]._id);
         res.render('admin/home',{layout: 'layouts/adminLayout.ejs',details})
     })
 })
@@ -44,7 +47,7 @@ router.post('/signup',(req,res)=>{
     })
 })
 router.get('/home/view-details/:id',async(req,res)=>{
-    var detail = await helper.getUserDetails(req.params.id)
+    var detail = await helper.getEventDetails(req.params.id)
         console.log(detail);
         res.render('admin/view-details',{layout: 'layouts/adminLayout.ejs',detail})
 

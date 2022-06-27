@@ -1,6 +1,9 @@
 const eventDetailModel = require("../models/eventdetails")
 const AdminDetailModel = require("../models/admindetails")
 const AcceptedEventModel = require("../models/acceptedEvent")
+const UserDetailModel = require("../models/userdetails")
+
+
 
 const { response } = require("express")
 const bcrypt = require('bcrypt')
@@ -58,9 +61,9 @@ module.exports={
             resolve(details)
         })
     },
-    getUserDetails:(userId)=>{
+    getEventDetails:(Id)=>{
         return new Promise(async(resolve,reject)=>{
-            await eventDetailModel.findOne({_id:ObjectId(userId)}).then((detail)=>{
+            await eventDetailModel.findOne({_id:ObjectId(Id)}).then((detail)=>{
                 resolve(detail)
             })
         })
