@@ -1,25 +1,85 @@
-<section>
-    <div class="container">
-        <div class="row d-flex justify-content-center">
-            <div class="detail-view">
-                <p><span class="h4">Name: </span><%= detail.name %> </p>
-                <p><span class="h4">Email: </span><%= detail.email %> </p>
-                <p><span class="h4">PhoneNumber: </span><%= detail.phoneNumber %> </p>
-                <p><span class="h4">How do you hear about us: </span><%= detail.howHearAboutUs %> </p>
-                <p><span class="h4">Event Type: </span><%= detail.eventType %> </p>
-                <p><span class="h4">Date: </span><%= detail.date %> </p>
-                <p><span class="h4">Guest Count: </span><%= detail.guestCount %> </p>
-                <p><span class="h4">Additional Notes: </span><%= detail.additionalNotes %> </p>
 
-            </div>
-        </div>
-        <!-- <div class="row text-center">
+<section>
+<div class="row d-flex justify-content-center">
+    <div class="col-md-6">
+        <div class="container">
+            <form action="/admin/acceptdetail" method="post" enctype="application/x-www-form-urlencoded">
+                <div class="form-group">
+                    <label for="">Name</label>
+                    <input type="text" class="form-control" name="name" aria-describedby="emailHelp" value="<%= detail.name %>" readonly>
+                </div>
+                <div class="form-group">
+                    <label for="">Email</label>
+                    <input type="email" class="form-control" name="email" aria-describedby="emailHelp" value="<%= detail.email %>" readonly>
+                </div>
+                <div class="form-group">
+                    <label for="">PhoneNumber</label>
+                    <input type="text" class="form-control" name="phoneNumber" aria-describedby="emailHelp" value="<%= detail.phoneNumber %>" readonly>
+                </div>
+                <div class="form-group">
+                    <label for="">How do you hear about us</label>
+                    <input type="text" class="form-control" name="howHearAboutUs" aria-describedby="emailHelp" value="<%= detail.howHearAboutUs %>" readonly>
+                </div>
+                <div class="form-group">
+                    <label for="">Event Type</label>
+                    <input type="text" class="form-control" name="eventType" aria-describedby="emailHelp" value="<%= detail.eventType %>" readonly>
+                </div>
+                <div class="form-group">
+                    <label for="">Date</label>
+                    <input type="text" class="form-control" name="date" aria-describedby="emailHelp" value="<%= detail.date %>" readonly>
+                </div>
+                <div class="form-group">
+                    <label for="">Guest Count</label>
+                    <input type="text" class="form-control" name="guestCount" aria-describedby="emailHelp" value="<%= detail.guestCount %>" readonly>
+                </div>
+                <div class="form-group">
+                    <label for="">Additional Notes</label>
+                    <textarea name="additionalNotes" class="form-control" id="notes" readonly><%= detail.additionalNotes %></textarea>
+                </div>
+                <div class="d-none">
+                    <div class="form-group">
+                        <label for="">userid</label>
+                        <input type="text" class="form-control" name="userid" aria-describedby="emailHelp" value="<%= detail.userid %>" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label for="">eventid</label>
+                        <input type="text" class="form-control" name="eventid" aria-describedby="emailHelp" value="<%= detail.eventid %>" readonly>
+                    </div>
+                </div>
                 <div class="col-md-6 p-2">                
-                    <a href="/admin/home/view-details/accept/<%= detail.id %>" class="btn btn-primary p-2 btn-xl">Accept</a>
+                    <button type="submit" class="btn btn-primary" id="submitForm">Accept</button>                
                 </div>
                 <div class="col-md-6 p-2">
                     <a href="/admin/home/view-details/<%= detail.id %>" class="btn btn-danger p-2 btn-xl">Reject</a>
                 </div>
-            </div> -->
+            </form>
+            
+            
+        </div>
     </div>
+</div>
+<!-- 
+    <div class="container">
+        <div class="row d-flex justify-content-center">
+            <div class="detail-view">
+                <p><span class="h4">Name: </span> </p>
+                <p><span class="h4">Email: </span><%= detail.email %> </p>
+                <p><span class="h4">PhoneNumber: </span> </p>
+                <p><span class="h4">How do you hear about us: </span><%= detail.howHearAboutUs %> </p>
+                <p><span class="h4">Event Type: </span><%= detail.eventType %> </p>
+                <p><span class="h4">Date: </span><%= detail.date %> </p>
+                <p><span class="h4">Guest Count: </span><%= detail.guestCount %> </p>
+                <p><span class="h4">: </span><%= detail.additionalNotes %> </p>
+
+            </div>
+        </div>
+        <div class="row text-center">
+                <div class="col-md-6 p-2">                
+                    <a href="/admin/home/view-details/accept/<%= detail.userid %>/<%= detail.eventid %> " class="btn btn-primary p-2 btn-xl">Accept</a>
+                </div>
+                <div class="col-md-6 p-2">
+                    <a href="/admin/home/view-details/<%= detail.id %>" class="btn btn-danger p-2 btn-xl">Reject</a>
+                </div>
+            </div>
+    </div> -->
 </section>

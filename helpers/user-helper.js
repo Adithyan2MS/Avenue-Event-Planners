@@ -2,6 +2,7 @@ const eventDetailModel = require("../models/eventdetails")
 const UserDetailModel = require("../models/userdetails")
 const bcrypt=require('bcrypt')
 const EventDetailModel = require("../models/eventdetails")
+const MemberDetailModel = require("../models/memberdetails")
 var ObjectId=require('mongodb').ObjectID
 
 
@@ -79,6 +80,31 @@ module.exports={
     
                 }
             })
+    },
+    doMemberLogin:(data)=>{
+        return new Promise(async(resolve,reject)=>{
+            let response={}
+            let member = await MemberDetailModel.findOne({email:data.email})
+            // console.log(member);
+                if(member){
+                    bcrypt.compare(data.password,member.password).then((status)=>{
+                        if(status){
+                            console.log("member login sucess");
+                            response.member=member
+                            response.status=true
+                            resolve(response)
+                        }
+                        else{
+                            console.log("login failed 1");
+                            resolve({status:false})
+                        }
+                    })
+                }else{
+                    console.log("login failed 2");
+                    resolve({status:false})
+    
+                }
+        })
     }
 
 }

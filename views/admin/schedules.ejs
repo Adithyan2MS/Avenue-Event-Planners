@@ -1,0 +1,48 @@
+<div class="d-flex justify-content-center">
+
+    <div class="">
+
+        <table class="table shadow-lg">
+            <thead>
+                <tr>
+                    <th scope="col">Date</th>
+
+                    <th scope="col">No</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Event type</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% datas.forEach((data)=> { %>
+
+                <tr>
+                
+
+
+                    <td><%= data.date %> 
+                    </td>
+                    <td>
+
+                    </td>
+                    <td><%= data.name%>
+                    </td>
+                    <td><%= data.eventType %>
+                    </td>
+                    <td>
+                    </td>
+                    <td><a href="/admin/home/view-details/" class="btn btn-info">View</a></td>
+                            <td><a href="/admin/delete-product/{{this._id}}" class="btn btn-danger"
+                                    onclick="return confirm('do you wnt to delete {{this._id}}')">Delete</a>
+                            </td>
+
+
+
+                </tr>
+                <% }) %> 
+
+
+            </tbody>
+        </table>
+    </div>
+
+</div>

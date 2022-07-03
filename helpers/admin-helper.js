@@ -2,6 +2,7 @@ const eventDetailModel = require("../models/eventdetails")
 const AdminDetailModel = require("../models/admindetails")
 const AcceptedEventModel = require("../models/acceptedEvent")
 const UserDetailModel = require("../models/userdetails")
+const MemberDetailModel = require("../models/memberdetails")
 
 
 const { response } = require("express")
@@ -94,33 +95,47 @@ module.exports={
             })
         })
     },
-    acceptDetail:(eventId,userId)=>{
+    acceptDetail:(data)=>{
         return new Promise(async(resolve,reject)=>{
-            let eventDetail =await AcceptedEventModel.findOne({user:ObjectId(userId)})
-            if(eventDetail)
-            {
-
-            }
-            else{
-                let eventObj={
-                    user:ObjectId(userId),
-                    events:[ObjectId(eventId)]
+            var AcceptModel =  AcceptedEventModel(data)
+            await AcceptModel.save((err,data)=>{
+                if(err){
+                    console.error(err);
                 }
-                var AcceptEvent =  AcceptedEventModel(eventObj)
-                await AcceptEvent.save((err,data)=>{
-                    if(err){
-                        console.error(err);
-                    }
-                    else{
-                        // console.log("data added");
-                        resolve(data)
-                        console.log(data);
-                        // response=true
-                        // resolve(response)
-                    }
-                })
+                else{
+                    // console.log("data added");
+                    resolve(data)
+                    // eventDetailModel.update(
+                    //     { '_id': ObjectId("5150a1199fac0e6910000002") }, 
+                    //     { $pull: { items: { id: 23 } } },
+                    //     false, // Upsert
+                    //     true, // Multi
+                    // );
+                    // response=true
+                    // resolve(response)
+                }
+            })     
 
-            }
+            
+        })
+    },
+    getAcceptedDetail:()=>{
+        return new Promise(async(resolve,reject)=>{
+            let data= await AcceptedEventModel.find()
+            resolve(data)
+        })
+    },
+    addMemberDetails:(data)=>{
+        return new Promise(async(resolve,reject)=>{
+            data.password=await bcrypt.hash(data.password,10)
+            var MemberDetail = new MemberDetailModel(data)
+            await MemberDetail.save((err,data)=>{
+                if(err){
+                    console.error(err);
+                }else{
+                    resolve(data)
+                }
+            })
         })
     }
 }

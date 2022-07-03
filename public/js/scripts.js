@@ -14,6 +14,8 @@ function giveAlert() {
     alert("Details Added Succesfully!");
 }
 
+
+
 // $(document).ready(function(){
 //     $(".dropdown-toggle").dropdown();
 // })

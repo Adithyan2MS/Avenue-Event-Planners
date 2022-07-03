@@ -1,5 +1,7 @@
 const { response } = require('express')
 const express = require('express')
+const { redirect } = require('express/lib/response')
+const { load } = require('nodemon/lib/config')
 const router = express.Router()
 
 var helper = require('../helpers/admin-helper') 
@@ -51,21 +53,42 @@ router.get('/home/view-details/:userid/:eventid',async(req,res)=>{
         console.log(detail);
         res.render('admin/view-details',{layout: 'layouts/adminLayout.ejs',detail})
     })
-    // var detail = await helper.getEventDetails(req.params.id)
-    //     console.log(detail);
-    //     
-
-    // ;
 })
-router.get('/schedules',(req,res)=>{
-    res.render('admin/schedules',{layout: 'layouts/adminLayout.ejs'})
+router.get('/schedules',async(req,res)=>{
+    await helper.getAcceptedDetail().then((datas)=>{
+        console.log("hhguguu");
+        console.log(datas);
+        res.render('admin/schedules',{layout: 'layouts/adminLayout.ejs',datas})
+    })
+    
 })
-router.get('/home/view-details/accept/:id',async(req,res)=>{
-    helper.acceptDetail(req.params.id,req.session.user._id)
-    // var detail = await helper.getUserDetails(req.params.id)
-    // console.log(detail);
-    // res.render('admin/schedules',{layout: 'layouts/adminLayout.ejs',detail})
+// router.get('/home/view-details/accept/:userid/:eventid',async(req,res)=>{
+//     helper.acceptDetail(req.params.userid,req.params.eventid).then(()=>{
+//         res.redirect('/admin/home')
+//     })
+   
 
+// })
+router.post('/acceptdetail',(req,res)=>{
+    console.log("jbjb");
+    console.log(req.body);
+    helper.acceptDetail(req.body).then(()=>{
+        res.redirect('/admin/home')
+    })
+})
+router.get('/home/addMember',(req,res)=>{
+    res.render('admin/add-member',{layout: 'layouts/adminLayout.ejs'})
+})
+router.post('/addMember',(req,res)=>{
+    helper.addMemberDetails(req.body).then((response)=>{
+        if(response){
+            res.redirect('/admin/home/addMember')
+        }
+        else{
+            console.log("error");
+        }
+    })
+    console.log(req.body);
 })
 
 

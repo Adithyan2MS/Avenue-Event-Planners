@@ -1,48 +1,40 @@
 const mongoose = require('mongoose')
 
-const acceptedEventSchema  = new mongoose.Schema({
+const memberDetailSchema  = new mongoose.Schema({
     name:{
         type:String,
-        required:true,
+        required:true
     },
     email:{
         type:String,
         required:true
     },
-    phoneNumber:{
+    dob:{
         type:String,
         required:true
     },
-    howHearAboutUs:{
+    gender:{
         type:String,
         required:true
     },
-    eventType:{
+    address:{
         type:String,
         required:true
     },
-    date:{
+    city:{
         type:String,
         required:true
     },
-    guestCount:{
+    state:{
         type:String,
         required:true
     },
-    additionalNotes:{
-        type:String,
-        required:true
-    },
-    userid:{
-        type:String,
-        required:true
-    },
-    eventid:{
+    password:{
         type:String,
         required:true
     }
 })
 
-const AcceptedEventModel=mongoose.model("acceptedEvent",acceptedEventSchema)
+const MemberDetailModel=mongoose.model("member",memberDetailSchema)
 
-module.exports = AcceptedEventModel
+module.exports = MemberDetailModel
