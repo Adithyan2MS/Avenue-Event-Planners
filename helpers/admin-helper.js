@@ -6,6 +6,7 @@ const MemberDetailModel = require("../models/memberdetails")
 const PortfolioDetailModel = require("../models/portfoliodetails")
 
 
+
 const { response } = require("express")
 const bcrypt = require('bcrypt')
 const { vary } = require("express/lib/response")
@@ -93,6 +94,10 @@ module.exports={
                 }
             ]).then((detail)=>{
                 resolve(detail[0])
+    getEventDetails:(Id)=>{
+        return new Promise(async(resolve,reject)=>{
+            await eventDetailModel.findOne({_id:ObjectId(Id)}).then((detail)=>{
+                resolve(detail)
             })
         })
     },

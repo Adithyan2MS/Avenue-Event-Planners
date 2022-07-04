@@ -54,6 +54,12 @@ router.get('/about',(req,res)=>{
 router.get('/socialGathering',(req,res)=>{
     res.render('social-gathering')
 })
+router.get('/wedding',(req,res)=>{
+    res.render('wedding')
+})
+router.get('/corporateEvent',(req,res)=>{
+    res.render('corporate-event')
+})
 router.get('/signup',(req,res)=>{
     res.render('user/signup')
 })

@@ -5,8 +5,8 @@ const eventDetailSchema  = new mongoose.Schema({
             type:String,
             required:true
         },
-        eventdetail:[{
-            
+        eventdetail:[
+        {   
         phoneNumber:{
             type:String,
             required:true,
