@@ -11338,7 +11338,7 @@ p {
   border-radius: 100%;
 }
 .serviceHeader{
-  background-image: url("../images/blackfloral.jpg");
+  background-image: url("../images/flower2.jpg");
   position: relative;
   height: 200px;
 }
@@ -11352,6 +11352,11 @@ p {
 }
 .aboutHeader{
   background-image: url("../images/tabledec.jpg");
+  position: relative;
+  height: 200px;
+}
+.portfolioHeader{
+  background-image: url("../images/baloons.jpg");
   position: relative;
   height: 200px;
 }

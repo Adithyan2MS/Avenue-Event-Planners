@@ -1,5 +1,6 @@
 const { render } = require('ejs')
 const express=require('express')
+const userHelper = require('../helpers/user-helper')
 const router = express.Router()
 
 var userhelper = require('../helpers/user-helper') 
@@ -30,7 +31,10 @@ router.get('/services',(req,res)=>{
     res.render('services')
 })
 router.get('/portfolio',(req,res)=>{
-    res.render('portfolio')
+    userHelper.getPortfolio().then((portfolios)=>{
+        res.render('portfolio',{portfolios})
+    })
+    
 })
 router.get('/team',(req,res)=>{
     let member=req.session.member

@@ -40,6 +40,10 @@ const acceptedEventSchema  = new mongoose.Schema({
     eventid:{
         type:String,
         required:true
+    },
+    members:{
+        type:Array,
+        default:[]
     }
 })
 

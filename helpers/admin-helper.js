@@ -3,6 +3,7 @@ const AdminDetailModel = require("../models/admindetails")
 const AcceptedEventModel = require("../models/acceptedEvent")
 const UserDetailModel = require("../models/userdetails")
 const MemberDetailModel = require("../models/memberdetails")
+const PortfolioDetailModel = require("../models/portfoliodetails")
 
 
 const { response } = require("express")
@@ -103,16 +104,7 @@ module.exports={
                     console.error(err);
                 }
                 else{
-                    // console.log("data added");
                     resolve(data)
-                    // eventDetailModel.update(
-                    //     { '_id': ObjectId("5150a1199fac0e6910000002") }, 
-                    //     { $pull: { items: { id: 23 } } },
-                    //     false, // Upsert
-                    //     true, // Multi
-                    // );
-                    // response=true
-                    // resolve(response)
                 }
             })     
 
@@ -133,7 +125,63 @@ module.exports={
                 if(err){
                     console.error(err);
                 }else{
-                    resolve(data)
+                    resolve(data._id.toString())
+                }
+            })
+        })
+    },
+    getAllMembers:()=>{
+        return new Promise(async(resolve,reject)=>{
+            let members= await MemberDetailModel.find()
+            resolve(members)
+        })
+    },
+    getScheduleDetail:(dataId)=>{
+        return new Promise(async(resolve,reject)=>{
+            let data = await AcceptedEventModel.findOne({_id:ObjectId(dataId)})
+            console.log("jbd"+data.members.length);
+            let members = await AcceptedEventModel.aggregate([
+                {
+                    $match:{_id:ObjectId(dataId)}
+                },
+                {
+                    $lookup:{
+                        from:"MemberDetailModel",
+                        let:{
+                            memberList:'$members'
+                        },
+                        pipeline:[
+                            {
+                                $match:{
+                                    $expr:{
+                                        $in:['$_id'.toString(),"$$memberList"]
+                                    }
+                                }
+                            }
+                        ],
+                        as:'membersdd'
+                    }
+                }
+            ])
+            resolve(members)
+            console.log("hhhhh");
+            console.log(members);
+        })
+    },
+    addPortfolio:(data)=>{
+        return new Promise(async(resolve,reject)=>{
+            var PortfolioModel =  PortfolioDetailModel(data)
+            await PortfolioModel.save((err,data)=>{
+                if(err){
+                    console.error(err);
+                }
+                else{
+                    // console.log("data added");
+                    resolve(data._id.toString())
+                    console.log("gdcutffyh");
+                    console.log(data._id.toString());
+                    // response=true
+                    // resolve(response)
                 }
             })
         })

@@ -3,6 +3,7 @@ const UserDetailModel = require("../models/userdetails")
 const bcrypt=require('bcrypt')
 const EventDetailModel = require("../models/eventdetails")
 const MemberDetailModel = require("../models/memberdetails")
+const PortfolioDetailModel = require("../models/portfoliodetails")
 var ObjectId=require('mongodb').ObjectID
 
 
@@ -105,6 +106,11 @@ module.exports={
     
                 }
         })
+    },
+    getPortfolio:()=>{
+        return new Promise(async(resolve,reject)=>{
+            let portfolios= await PortfolioDetailModel.find()
+            resolve(portfolios)
+        })
     }
-
 }
