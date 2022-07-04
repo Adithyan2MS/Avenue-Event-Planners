@@ -1,11 +1,12 @@
 const { render } = require('ejs')
 const express=require('express')
+const userHelper = require('../helpers/user-helper')
 const router = express.Router()
 
 var userhelper = require('../helpers/user-helper') 
 
 const verifyLogin=(req,res,next)=>{
-    if(req.session.loggedIn)
+    if(req.session.user.loggedIn)
     {
         next()
     }else{
@@ -15,12 +16,11 @@ const verifyLogin=(req,res,next)=>{
 router.get('/',(req,res)=>{
     let user=req.session.user
     if(user)
-        console.log("user eru");
-    console.log(user);
+        console.log(user);
     res.render('index',{user})
 })
 router.get('/logout',(req,res)=>{
-    req.session.destroy()
+    req.session.user=null
     res.redirect('/')
 })
 router.get('/contact',(req,res)=>{
@@ -29,6 +29,18 @@ router.get('/contact',(req,res)=>{
 })
 router.get('/services',(req,res)=>{
     res.render('services')
+})
+router.get('/portfolio',(req,res)=>{
+    userHelper.getPortfolio().then((portfolios)=>{
+        res.render('portfolio',{portfolios})
+    })
+    
+})
+router.get('/team',(req,res)=>{
+    let member=req.session.member
+    if(member)
+        console.log(member);
+    res.render('members/team',{member})
 })
 router.post('/contact/addDetails',verifyLogin,(req,res)=>{
     console.log(req.body);
@@ -66,8 +78,9 @@ router.post('/signup',(req,res)=>{
 router.post('/login',(req,res)=>{
     userhelper.doLogin(req.body).then((response)=>{
         if(response.status){
-            req.session.loggedIn=true
+            
             req.session.user=response.user
+            req.session.user.loggedIn=true
             res.redirect('/')
         }else{
             console.log('invalid username or password');
@@ -75,9 +88,28 @@ router.post('/login',(req,res)=>{
         }
       })
 })
-
 router.get('/login',(req,res)=>{
     res.render('user/login')
 })
+router.get('/team/member/login',(req,res)=>{
+    res.render('members/login')
+})
+router.post('/member/login',(req,res)=>{
+    userhelper.doMemberLogin(req.body).then((response)=>{
+        if(response.status){
+            req.session.member=response.member
+            req.session.member.loggedIn=true
+            res.redirect('/team')
+        }else{
+            console.log('invalid username or password');
+            res.redirect('/team/member/login')
+        }
+      })
+})
+router.get('/team/member/logout',(req,res)=>{
+    req.session.member=null
+    res.redirect('/team')
+})
+
 
 module.exports=router

@@ -11338,7 +11338,7 @@ p {
   border-radius: 100%;
 }
 .serviceHeader{
-  background-image: url("../images/blackfloral.jpg");
+  background-image: url("../images/flower2.jpg");
   position: relative;
   height: 200px;
 }
@@ -11352,6 +11352,11 @@ p {
 }
 .aboutHeader{
   background-image: url("../images/tabledec.jpg");
+  position: relative;
+  height: 200px;
+}
+.portfolioHeader{
+  background-image: url("../images/baloons.jpg");
   position: relative;
   height: 200px;
 }
@@ -11910,3 +11915,69 @@ section#contact form#contactForm :-ms-input-placeholder {
 .dropdown:hover .dropbtn {
   background-color: #3e8e41;
 }
+
+/* portfolio */
+
+.gallery-title
+{
+    font-size: 36px;
+    color: #FFA500;
+    text-align: center;
+    font-weight: 500;
+    margin-bottom: 70px;
+}
+.gallery-title:after {
+    content: "";
+    position: absolute;
+    width: 22.5%;
+    left: 38.5%;
+    height: 45px;
+    border-bottom: 1px solid #5e5e5e;
+}
+.filter-button
+{
+    font-size: 18px;
+    border: 1px solid #FFA500;
+    border-radius: 5px;
+    text-align: center;
+    color: #FFA500;
+    margin-bottom: 30px;
+
+}
+.filter-button:hover
+{
+    font-size: 18px;
+    border: 1px solid #FFA500;
+    border-radius: 5px;
+    text-align: center;
+    color: #ffffff;
+    background-color: #FFA500;
+
+}
+.btn-default:active .filter-button:active
+{
+    background-color: #FFA500;
+    color: white;
+}
+ 
+.port-image
+{
+    width: 100%;
+}
+
+.gallery_product
+{
+    margin-bottom: 30px;
+}
+
+img{
+        box-shadow: 1px 1px 5px 1px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+}
+.center {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  padding: 10px;
+  }

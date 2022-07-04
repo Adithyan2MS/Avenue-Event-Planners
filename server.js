@@ -6,6 +6,7 @@ const adminRouter=require('./routes/admin')
 const app=express()
 const bodyParser = require('body-parser')
 var session=require('express-session')
+var fileUpload=require('express-fileupload')
 
 app.use(bodyParser.urlencoded({
     extended: true
@@ -22,7 +23,7 @@ app.set('view engine','ejs')
 
 
 
-
+app.use(fileUpload())
 app.use('/',indexRouter)
 app.use('/admin',adminRouter)
 app.use(express.static(path.join(__dirname, 'public')));

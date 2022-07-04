@@ -1,0 +1,25 @@
+
+  <div class="row ">
+    <div class="col-md-6 p-5 hidden">
+
+    </div>
+    <div class="dropdown pb-5 d-flex justify-content-center">
+        <button class="dropbtn">
+          <% if(member){ %> 
+                <%= member.name %> 
+          <% }else{ %> 
+            Account
+          <% } %> 
+        </button>
+        <div class="dropdown-content ">
+          <% if(member){ %> 
+            <a href="/team/member/logout">logout</a>
+      <% }else{ %> 
+        <a href="/team/member/login">login</a>
+      <% } %> 
+                
+                
+        </div>
+      </div>
+    </div>
+  </div>

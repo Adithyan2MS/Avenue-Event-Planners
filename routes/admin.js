@@ -1,5 +1,7 @@
 const { response } = require('express')
 const express = require('express')
+const { redirect } = require('express/lib/response')
+const { load } = require('nodemon/lib/config')
 const router = express.Router()
 
 var helper = require('../helpers/admin-helper') 
@@ -24,8 +26,8 @@ router.post('/login',(req,res)=>{
 router.get('/home',async(req,res)=>{
     
     await helper.getAllDetails().then((details)=>{
-        console.log(details[0].user);
-        // console.log(details[0]._id);
+
+        // console.log(details);
         res.render('admin/home',{layout: 'layouts/adminLayout.ejs',details})
     })
 })
@@ -46,23 +48,79 @@ router.post('/signup',(req,res)=>{
         }   
     })
 })
-router.get('/home/view-details/:id',async(req,res)=>{
-    var detail = await helper.getEventDetails(req.params.id)
+router.get('/home/view-details/:userid/:eventid',async(req,res)=>{
+    // console.log(req.params.userid);
+    // console.log(req.params.eventid)
+    let members =await helper.getAllMembers()
+        await helper.getEventDetails(req.params.userid,req.params.eventid).then((detail)=>{
+
         console.log(detail);
-        res.render('admin/view-details',{layout: 'layouts/adminLayout.ejs',detail})
-
-    // console.log(req.params.id);
+        res.render('admin/view-details',{layout: 'layouts/adminLayout.ejs',detail,members})
+    })
 })
-router.get('/schedules',(req,res)=>{
-    res.render('admin/schedules',{layout: 'layouts/scheduleLayout.ejs'})
+router.get('/schedules',async(req,res)=>{
+    await helper.getAcceptedDetail().then((datas)=>{
+        console.log("hhguguu");
+        console.log(datas);
+        res.render('admin/schedules',{layout: 'layouts/adminLayout.ejs',datas})
+    })
+    
 })
-router.get('/home/view-details/accept/:id',async(req,res)=>{
-    helper.acceptDetail(req.params.id,req.session.user._id)
-    // var detail = await helper.getUserDetails(req.params.id)
-    // console.log(detail);
-    // res.render('admin/schedules',{layout: 'layouts/adminLayout.ejs',detail})
+// router.get('/home/view-details/accept/:userid/:eventid',async(req,res)=>{
+//     helper.acceptDetail(req.params.userid,req.params.eventid).then(()=>{
+//         res.redirect('/admin/home')
+//     })
+   
 
+// })
+router.post('/acceptdetail',(req,res)=>{
+    console.log("jbjb");
+    console.log(req.body);
+    helper.acceptDetail(req.body).then(()=>{
+        res.redirect('/admin/home')
+    })
 })
-
+router.get('/home/addMember',(req,res)=>{
+    res.render('admin/add-member',{layout: 'layouts/adminLayout.ejs'})
+})
+router.post('/addMember',(req,res)=>{
+    // console.log(req.files.image)
+    helper.addMemberDetails(req.body).then((id)=>{
+        let image=req.files.image
+        image.mv('./public/images/members/'+id+'.jpg',(err,done)=>{
+            if(!err){
+                res.redirect('/admin/home/addMember')
+            }else{
+                console.log(err);
+            }
+        })
+    })
+    console.log(req.body);
+})
+router.get('/home/scheduled-details/:id',(req,res)=>{
+    console.log(req.params.id);
+    helper.getScheduleDetail(req.params.id).then((data)=>{
+        console.log("jni as"+data);
+    })
+    res.render('admin/scheduled-details',{layout:'layouts/adminLayout.ejs'})
+})
+router.get('/home/add-portfolio',(req,res)=>{
+    res.render('admin/add-portfolio')
+})
+router.post('/home/add-portfolio',(req,res)=>{
+    console.log(req.body);
+    console.log(req.files.Image);
+    helper.addPortfolio(req.body).then((id)=>{
+        let image=req.files.Image
+        image.mv('./public/images/portfolio/'+id+'.jpg',(err,done)=>{
+            if(!err){
+                res.redirect('/admin/home/add-portfolio')
+            }else{
+                console.log(err);
+            }
+        })
+        
+    })
+})
 
 module.exports = router
