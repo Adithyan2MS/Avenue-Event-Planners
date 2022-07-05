@@ -179,7 +179,6 @@ module.exports={
                 else{
                     // console.log("data added");
                     resolve(data._id.toString())
-                    console.log("gdcutffyh");
                     console.log(data._id.toString());
                     // response=true
                     // resolve(response)
