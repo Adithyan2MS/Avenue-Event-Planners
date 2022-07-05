@@ -60,8 +60,8 @@ router.get('/home/view-details/:userid/:eventid',async(req,res)=>{
 })
 router.get('/schedules',async(req,res)=>{
     await helper.getAcceptedDetail().then((datas)=>{
-        console.log("hhguguu");
-        console.log(datas);
+        // console.log("hhguguu");
+        // console.log(datas);
         res.render('admin/schedules',{layout: 'layouts/adminLayout.ejs',datas})
     })
     
@@ -100,7 +100,7 @@ router.post('/addMember',(req,res)=>{
 router.get('/home/scheduled-details/:id',(req,res)=>{
     console.log(req.params.id);
     helper.getScheduleDetail(req.params.id).then((data)=>{
-        console.log("jni as"+data);
+        // console.log("jni as"+data);
     })
     res.render('admin/scheduled-details',{layout:'layouts/adminLayout.ejs'})
 })

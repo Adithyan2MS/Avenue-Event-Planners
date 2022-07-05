@@ -41,10 +41,10 @@ const acceptedEventSchema  = new mongoose.Schema({
         type:String,
         required:true
     },
-    members:{
-        type:Array,
-        default:[]
-    }
+    members:[{
+        type:mongoose.Schema.Types.ObjectId
+
+    }]
 })
 
 const AcceptedEventModel=mongoose.model("acceptedEvent",acceptedEventSchema)

@@ -25,46 +25,43 @@
                     <table class="table shadow-lg">
                         <thead>
                             <tr>
-                                <th scope="col">No</th>
-                                <th scope="col">PhoneNumber</th>
-
+                                <!-- <th scope="col">No</th> -->
+                                <th scope="col">Name</th>
+                                <th scope="col">Email</th>
                                 <th scope="col">Event type</th>
                                 <th scope="col">Date</th>
-                                <th scope="col">Guest Count</th>
                             </tr>
                         </thead>
                         <tbody>
                             <!-- {{#each products}} -->
-                            <% details.forEach((detail)=> { %>
+                            <% details.forEach((detail,)=> { %>
 
                                 <tr>
                                     
                                     <% for (var i=0; i < detail.eventdetail.length; i++) { %>
+                                       
                                         <td>
-                                            <!-- <%= i+1 %> -->
-                                        </td>
-                                        <td>
-                                            <%= detail.eventdetail[i].phoneNumber %>
+                                            <%= detail.userdetail[0].name %>
                                         </td>
 
+                                        <td>
+                                            <%= detail.userdetail[0].email %>
+                                        </td>
+                                        
                                         <td>
                                             <%= detail.eventdetail[i].eventType %>
                                         </td>
+
                                         <td>
                                             <%= detail.eventdetail[i].date %>
                                         </td>
-                                        <td>
-                                            <%= detail.eventdetail[i].guestCount %>
-                                        </td>
-                                        <td><a href="/admin/home/view-details/<%= detail.user %>/<%= detail.eventdetail[i]._id %> "
+                                        <td><a href="/admin/home/view-details/<%= detail.userdetail[0]._id %>/<%= detail.eventdetail[i]._id %> "
                                                 class="btn btn-info">View</a></td>
 
                                         <td><a href="/admin/delete-product/{{this._id}}" class="btn btn-danger"
-                                                onclick="return confirm('do you wnt to delete {{this._id}}')">Delete</a>
+                                                onclick="return confirm('do you wnt to delete {{this._id}}')">Delete
+                                                </a>
                                         </td>
-
-
-
                                 </tr>
                                 <% } %>
 

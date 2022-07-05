@@ -42,7 +42,7 @@ router.get('/team',(req,res)=>{
         console.log(member);
     res.render('members/team',{member})
 })
-router.post('/contact/addDetails',verifyLogin,(req,res)=>{
+router.post('/contact/addDetails',(req,res)=>{
     console.log(req.body);
     userhelper.addDetails(req.body,req.session.user._id).then(()=>{
         res.redirect('/contact');

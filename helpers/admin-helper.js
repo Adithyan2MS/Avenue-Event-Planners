@@ -61,7 +61,47 @@ module.exports={
     getAllDetails:()=>{
         return new Promise(async(resolve,reject)=>{
             let details= await eventDetailModel.find()
-            resolve(details)
+            // resolve(details)
+
+            let data =await eventDetailModel.aggregate([
+                {
+                    $lookup:{
+                        from:UserDetailModel.collection.collectionName,
+                        let:{
+                            searchId:"$user"
+                        },
+                        pipeline:[
+                            {
+                                $match:{
+                                    $expr:{
+                                        $eq:['$_id',"$$searchId"]
+                                    }
+                                }
+                            },
+                            {
+                                $project:{
+                                    name:1,
+                                    email:1
+                                }
+                            }
+                        ],
+                        as:'userdetail'
+                    }
+                },
+                {
+                    $unwind:"$user"
+                },
+                {  
+                $project: {
+                    _id:1,
+                    eventdetail:1,
+                    userdetail:1
+                }
+                }
+            ]).then((data)=>{
+                resolve(data)
+                console.log(data);
+            })
         })
     },
     getEventDetails:(userId,eventId)=>{
@@ -69,7 +109,7 @@ module.exports={
             let user = await UserDetailModel.findOne({_id:ObjectId(userId)})
             let detail = await eventDetailModel.aggregate([
                 {
-                    "$match":{"user":userId}
+                    "$match":{"user":ObjectId(userId)}
                 },
                 {
                     "$unwind":"$eventdetail"
@@ -140,14 +180,14 @@ module.exports={
     getScheduleDetail:(dataId)=>{
         return new Promise(async(resolve,reject)=>{
             let data = await AcceptedEventModel.findOne({_id:ObjectId(dataId)})
-            console.log("jbd"+data.members.length);
+            console.log("jbd"+data);
             let members = await AcceptedEventModel.aggregate([
                 {
                     $match:{_id:ObjectId(dataId)}
                 },
                 {
                     $lookup:{
-                        from:"MemberDetailModel",
+                        from:MemberDetailModel.collection.collectionName,
                         let:{
                             memberList:'$members'
                         },
@@ -155,7 +195,7 @@ module.exports={
                             {
                                 $match:{
                                     $expr:{
-                                        $in:['$_id'.toString(),"$$memberList"]
+                                        $in:['$_id',"$$memberList"]
                                     }
                                 }
                             }
@@ -166,7 +206,7 @@ module.exports={
             ])
             resolve(members)
             console.log("hhhhh");
-            console.log(members);
+            //console.log(members[0].membersdd);
         })
     },
     addPortfolio:(data)=>{

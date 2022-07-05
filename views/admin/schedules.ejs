@@ -1,34 +1,35 @@
 <div class="d-flex justify-content-center">
 
-    <div class="">
+    <div class="col-md-10 p-3">
 
         <table class="table shadow-lg">
             <thead>
                 <tr>
+                    <th scope="col">No</th>
+
                     <th scope="col">Date</th>
 
-                    <th scope="col">No</th>
                     <th scope="col">Name</th>
                     <th scope="col">Event type</th>
+                    <th scope="col">Guest Count</th>
+
                 </tr>
             </thead>
             <tbody>
-                <% datas.forEach((data)=> { %>
+                <% datas.forEach((data,index)=> { %>
 
                 <tr>
-                
+                    <td><%= index + 1 %> 
+                    </td>
 
 
                     <td><%= data.date %> 
-                    </td>
-                    <td>
-
                     </td>
                     <td><%= data.name%>
                     </td>
                     <td><%= data.eventType %>
                     </td>
-                    <td>
+                    <td><%= data.guestCount %>
                     </td>
                     <td><a href="/admin/home/scheduled-details/<%= data._id %>" class="btn btn-info">View</a></td>
                             <td><a href="/admin/delete-product/{{this._id}}" class="btn btn-danger"

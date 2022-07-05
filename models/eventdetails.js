@@ -1,10 +1,9 @@
 const mongoose = require('mongoose')
+// const ObjectId = Schema.Types.ObjectId;
+
 
 const eventDetailSchema  = new mongoose.Schema({
-        user:{
-            type:String,
-            required:true
-        },
+        user:mongoose.Schema.Types.ObjectId,
         eventdetail:[
         {   
         phoneNumber:{
