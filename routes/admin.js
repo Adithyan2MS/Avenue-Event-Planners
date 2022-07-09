@@ -99,10 +99,11 @@ router.post('/addMember',(req,res)=>{
 })
 router.get('/home/scheduled-details/:id',(req,res)=>{
     console.log(req.params.id);
-    helper.getScheduleDetail(req.params.id).then((data)=>{
-        // console.log("jni as"+data);
+    helper.getScheduleDetail(req.params.id).then((details)=>{
+        console.log("jni as"+details);
+        res.render('admin/scheduled-details',{layout:'layouts/adminLayout.ejs',details})
     })
-    res.render('admin/scheduled-details',{layout:'layouts/adminLayout.ejs'})
+    
 })
 router.get('/home/add-portfolio',(req,res)=>{
     res.render('admin/add-portfolio')

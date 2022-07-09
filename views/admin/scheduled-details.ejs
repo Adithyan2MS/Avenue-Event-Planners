@@ -1,0 +1,71 @@
+<section>
+    <div class="container">
+        <div class="row">
+            <div class="row h2 d-flex justify-content-center  pb-4">Schedule Details</div>
+            <div class="row">
+                <div class="col-md-8">
+                    <div class="h4" style="display: flex;">
+                        <div class="h4 text-secondary">Name :  </div>
+                        <div class="px-3">
+                            <%= details.name %> 
+                        </div>
+                    </div>
+                    <div class="h4" style="display: flex;">
+                        <div class="h4 text-secondary">Email :  </div>
+                        <div class="px-3">
+                            <%= details.email %>
+                        </div>
+                    </div>
+                    <div class="h4" style="display: flex;">
+                        <div class="h4 text-secondary">PhoneNumber :  </div>
+                        <div class="px-3">
+                            <%= details.phoneNumber %>
+                        </div>
+                    </div>
+                    <div class="h4" style="display: flex;">
+                        <div class="h4 text-secondary">Event Type :  </div>
+                        <div class="px-3">
+                            <%= details.eventType %>
+                        </div>
+                    </div>
+                    <div class="h4" style="display: flex;">
+                        <div class="h4 text-secondary">Date :  </div>
+                        <div class="px-3">
+                            <%= details.date %>
+                        </div>
+                    </div>
+                    <div class="h4" style="display: flex;">
+                        <div class="h4 text-secondary">Guest Count :  </div>
+                        <div class="px-3">
+                            <%= details.guestCount %>
+                        </div>
+                    </div>
+                    <div class="h4" style="display: flex;">
+                        <div class="h4 text-secondary">Additional Notes :  </div>
+                        <div class="px-3">
+                            <%= details.additionalNotes %>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 verticalLine">
+                    <div class=""></div>
+                    <div class="row">
+                        <div class="h3 text-center p-3">Team Members</div>
+                    </div>
+                    <div class="row h4 px-3">
+                        <% for (var i=0;i<details.memberDetails.length;i++) { %> 
+                        <div style="display: flex;">
+                            <div>
+                                <%= details.memberDetails[i].name %> 
+                            </div>
+                            <div class="px-3">
+                                <%= details.memberDetails[i].email %> 
+                            </div>
+                        </div>
+                        <% } %> 
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

@@ -137,6 +137,12 @@ module.exports={
             })
         })
     },
+    getAllMembers:()=>{
+        return new Promise(async(resolve,reject)=>{
+            let members= await MemberDetailModel.find()
+            resolve(members)
+        })
+    },
     acceptDetail:(data)=>{
         return new Promise(async(resolve,reject)=>{
             var AcceptModel =  AcceptedEventModel(data)
@@ -171,17 +177,11 @@ module.exports={
             })
         })
     },
-    getAllMembers:()=>{
-        return new Promise(async(resolve,reject)=>{
-            let members= await MemberDetailModel.find()
-            resolve(members)
-        })
-    },
     getScheduleDetail:(dataId)=>{
         return new Promise(async(resolve,reject)=>{
             let data = await AcceptedEventModel.findOne({_id:ObjectId(dataId)})
-            console.log("jbd"+data);
-            let members = await AcceptedEventModel.aggregate([
+            // console.log("jbd"+data);
+            let details = await AcceptedEventModel.aggregate([
                 {
                     $match:{_id:ObjectId(dataId)}
                 },
@@ -200,13 +200,12 @@ module.exports={
                                 }
                             }
                         ],
-                        as:'membersdd'
+                        as:'memberDetails'
                     }
                 }
             ])
-            resolve(members)
-            console.log("hhhhh");
-            //console.log(members[0].membersdd);
+            resolve(details[0])
+            console.log(details[0]);
         })
     },
     addPortfolio:(data)=>{

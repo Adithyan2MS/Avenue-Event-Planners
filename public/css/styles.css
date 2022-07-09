@@ -11981,3 +11981,14 @@ img{
   transform: translate(-50%, -50%);
   padding: 10px;
   }
+
+  .verticalLine {
+    border-left: thick solid #ff0000;
+  }
+
+  @media only screen and (max-width: 600px) {
+    .verticalLine{
+      border-top: thick solid #ff0000; 
+      border-left: none;   
+    }
+  }
