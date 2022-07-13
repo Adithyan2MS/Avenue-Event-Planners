@@ -51,17 +51,20 @@ router.post('/signup',(req,res)=>{
 router.get('/home/view-details/:userid/:eventid',async(req,res)=>{
     // console.log(req.params.userid);
     // console.log(req.params.eventid)
-    let members =await helper.getAllMembers()
-        await helper.getEventDetails(req.params.userid,req.params.eventid).then((detail)=>{
+        await helper.getEventDetails(req.params.userid,req.params.eventid).then(([members,detail])=>{
 
-        console.log(detail);
-        res.render('admin/view-details',{layout: 'layouts/adminLayout.ejs',detail,members})
+        // console.log(detail);
+        // var obj ={}
+        // obj.detail=detail
+        // obj.members=members
+        res.render('admin/view-details',{layout: 'layouts/adminLayout.ejs',members,detail})
     })
 })
 router.get('/schedules',async(req,res)=>{
     await helper.getAcceptedDetail().then((datas)=>{
         // console.log("hhguguu");
         // console.log(datas);
+        
         res.render('admin/schedules',{layout: 'layouts/adminLayout.ejs',datas})
     })
     
@@ -117,11 +120,17 @@ router.post('/home/add-portfolio',(req,res)=>{
             if(!err){
                 res.redirect('/admin/home/add-portfolio')
             }else{
-                console.log(err);
+                console.log(err)
             }
         })
         
     })
+})
+router.get('/home/view-details-reject/:dataId/:eventId',(req,res)=>{
+    console.log("ggggg");
+    // console.log(req.params.id);
+    helper.deleteEvent(req.params.dataId,req.params.eventId)
+
 })
 
 module.exports = router

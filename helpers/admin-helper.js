@@ -10,6 +10,7 @@ const PortfolioDetailModel = require("../models/portfoliodetails")
 const { response } = require("express")
 const bcrypt = require('bcrypt')
 const { vary } = require("express/lib/response")
+const { reject } = require("bcrypt/promises")
 var ObjectId=require('mongodb').ObjectID
 
 
@@ -129,11 +130,28 @@ module.exports={
                         eventType:"$eventdetail.eventType",
                         date:"$eventdetail.date",
                         guestCount:"$eventdetail.guestCount",
-                        additionalNotes:"$eventdetail.additionalNotes"
+                        additionalNotes:"$eventdetail.additionalNotes",
                     }
                 }
-            ]).then((detail)=>{
-                resolve(detail[0])
+            ]).then(async(detail)=>{
+                let data= await AcceptedEventModel.find({date:detail[0].date})
+                if(data){
+                    let arr=[]
+                    let j=0
+                    for(let i = 0;i<data.length;i++)
+                    {
+                        for(let k = 0;k<data[i].members.length;k++){
+                            arr[j]=data[i].members[k]
+                            j++
+                        }
+                    }
+                    let members= await MemberDetailModel.find({_id:{$nin:arr}})
+                    resolve([members,detail[0]])
+                }
+                else{
+                    let members= await MemberDetailModel.find()
+                    resolve([members,detail[0]])
+                }
             })
         })
     },
@@ -223,6 +241,22 @@ module.exports={
                     // resolve(response)
                 }
             })
+        })
+    },
+    deleteEvent:(dataId,eventId)=>{
+        return new Promise((resolve,reject)=>{
+            console.log("eventid is "+eventId);
+            console.log(dataId);
+            // let iddd = eventDetailModel.collection.collectionName.eventdetail._id
+            // console.log(iddd);
+            
+            eventDetailModel.findOneAndUpdate(
+                { _id: ObjectId(dataId) },
+                { $pull: { eventdetail: { _id:ObjectId(eventId)  } } },
+                { new: true }
+              )
+                .then(eventdetail => console.log(eventdetail))
+                .catch(err => console.log(err));
         })
     }
 }

@@ -34,7 +34,7 @@
                         </thead>
                         <tbody>
                             <!-- {{#each products}} -->
-                            <% details.forEach((detail,)=> { %>
+                            <% details.forEach((detail)=> { %>
 
                                 <tr>
                                     
@@ -58,7 +58,7 @@
                                         <td><a href="/admin/home/view-details/<%= detail.userdetail[0]._id %>/<%= detail.eventdetail[i]._id %> "
                                                 class="btn btn-info">View</a></td>
 
-                                        <td><a href="/admin/delete-product/{{this._id}}" class="btn btn-danger"
+                                        <td><a href="/admin/home/view-details-reject/<%= detail._id %>/<%= detail.eventdetail[i]._id %>" class="btn btn-danger"
                                                 onclick="return confirm('do you wnt to delete {{this._id}}')">Delete
                                                 </a>
                                         </td>
