@@ -3,6 +3,7 @@ const express = require('express')
 const { redirect } = require('express/lib/response')
 const { load } = require('nodemon/lib/config')
 const router = express.Router()
+require('dotenv').config();
 
 var helper = require('../helpers/admin-helper') 
 
@@ -87,11 +88,31 @@ router.get('/home/addMember',(req,res)=>{
     res.render('admin/add-member',{layout: 'layouts/adminLayout.ejs'})
 })
 router.post('/addMember',(req,res)=>{
-    // console.log(req.files.image)
+    console.log("*****"+req.body.email)
+    const memberPassword=req.body.password
     helper.addMemberDetails(req.body).then((id)=>{
         let image=req.files.image
         image.mv('./public/images/members/'+id+'.jpg',(err,done)=>{
             if(!err){
+                const emailTo=req.body.email
+                const emailFrom="adithyan2ms@gmail.com"
+                if(!emailTo){
+                    return res.status(422).send({error:"All fields are required"})
+                }
+                const sendMail = require('../services/emailService')
+                    sendMail({
+                        from:emailFrom,
+                        to:emailTo,
+                        subject:"Greetings from Avenue Hospitality",
+                        text:"",
+                        html:require('../services/emailTemplates/membercredentials')({
+                            name:req.body.name,
+                            emailFrom:emailFrom,
+                            loginID:req.body.email,
+                            loginPassword:memberPassword,
+                            loginLINK:`${process.env.APP_BASE_URL}/team/member/login`
+                        })
+                    })
                 res.redirect('/admin/home/addMember')
             }else{
                 console.log(err);
@@ -129,7 +150,16 @@ router.post('/home/add-portfolio',(req,res)=>{
 router.get('/home/view-details-reject/:dataId/:eventId',(req,res)=>{
     console.log("ggggg");
     // console.log(req.params.id);
-    helper.deleteEvent(req.params.dataId,req.params.eventId)
+    helper.deleteEvent(req.params.dataId,req.params.eventId).then(()=>{
+        res.redirect('/admin/home')
+    })
+
+})
+router.get('/home/schedule-details-delete/:id',(req,res)=>{
+    helper.deleteSchedule(req.params.id).then((msg)=>{
+        console.log(msg);
+        res.redirect('/admin/schedules')
+    })
 
 })
 

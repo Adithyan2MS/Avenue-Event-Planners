@@ -120,7 +120,7 @@ module.exports={
                 },
                 {
                     $project:{
-                        _id:0,
+                        _id:1,
                         userid:userId,
                         eventid:ObjectId(eventId),
                         name:user.name,
@@ -257,6 +257,15 @@ module.exports={
               )
                 .then(eventdetail => console.log(eventdetail))
                 .catch(err => console.log(err));
+        })
+    },
+    deleteSchedule:(id)=>{
+        return new Promise((resolve,reject)=>{
+            let msg;
+            AcceptedEventModel.deleteOne({_id:ObjectId(id)}).then(()=>{
+                msg="deleted"
+                resolve(msg)
+            })
         })
     }
 }

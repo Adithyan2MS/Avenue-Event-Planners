@@ -31,12 +31,9 @@
                     </td>
                     <td><%= data.guestCount %>
                     </td>
-                    <td><a href="/admin/home/scheduled-details/<%= data._id %>" class="btn btn-info">View</a></td>
-                            <td><a href="/admin/delete-product/{{this._id}}" class="btn btn-danger"
-                                    onclick="return confirm('do you wnt to delete {{this._id}}')">Delete</a>
-                            </td>
-
-
+                    <td><a href="/admin/home/scheduled-details/<%= data._id %>" class="btn btn-info">View details</a></td>
+                    <td><a href="/admin/home/schedule-details-delete/<%= data._id %>" class="btn btn-danger"
+                        onclick="return confirm('do you wnt to delete')">Delete</a></td>
 
                 </tr>
                 <% }) %> 
