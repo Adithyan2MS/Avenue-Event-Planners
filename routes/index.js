@@ -2,6 +2,8 @@ const { render } = require('ejs')
 const express=require('express')
 const userHelper = require('../helpers/user-helper')
 const router = express.Router()
+const sendMail = require('../services/emailService')
+
 
 var userhelper = require('../helpers/user-helper') 
 
@@ -44,8 +46,21 @@ router.get('/team',(req,res)=>{
 })
 router.post('/contact/addDetails',(req,res)=>{
     console.log(req.body);
-    userhelper.addDetails(req.body,req.session.user._id).then(()=>{
+    userhelper.addDetails(req.body,req.session.user._id).then((user)=>{
         res.redirect('/contact');
+        sendMail({
+            from:user.email,
+            to:"adithyan2ms@gmail.com",
+            subject:"Avenue Hospitality - New Request!",
+            text:"",
+            html:require('../services/emailTemplates/sendAdmin')({
+                name:user.name,
+                emailFrom:user.email,
+                eventType:req.body.eventType,
+                date:req.body.date,
+                Adminlogin:`${process.env.APP_BASE_URL}/admin`
+            })
+        })
     })
 })
 router.get('/about',(req,res)=>{
@@ -91,18 +106,16 @@ router.post('/login',(req,res)=>{
 router.get('/login',(req,res)=>{
     res.render('user/login')
 })
-router.get('/team/member/login',(req,res)=>{
-    res.render('members/login')
-})
 router.post('/member/login',(req,res)=>{
     userhelper.doMemberLogin(req.body).then((response)=>{
         if(response.status){
             req.session.member=response.member
             req.session.member.loggedIn=true
-            res.redirect('/team')
+            let member=response.member
+            res.render('members/member',{member})
         }else{
             console.log('invalid username or password');
-            res.redirect('/team/member/login')
+            res.redirect('/team')
         }
       })
 })

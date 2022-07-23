@@ -11,6 +11,7 @@ var ObjectId=require('mongodb').ObjectID
 module.exports={
     addDetails:(detail,userId)=>{
         return new Promise(async(resolve,reject)=>{
+            let user = await UserDetailModel.findOne({_id:ObjectId(userId)})
             let details = await eventDetailModel.findOne({user:ObjectId(userId)})
             if(details){
                 await EventDetailModel
@@ -19,7 +20,7 @@ module.exports={
                     $push:{eventdetail:detail}
                 }
                 ).then((response)=>{
-                    resolve()
+                    resolve(user)
                 })
             }else
             {
@@ -35,7 +36,7 @@ module.exports={
                     }
                     else{
                         console.log("data added");
-                        resolve()
+                        resolve(user)
                     }
                 })   
             }

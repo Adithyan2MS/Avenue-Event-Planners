@@ -11337,6 +11337,16 @@ p {
   padding: 0;
   border-radius: 100%;
 }
+.teamHeader{
+  background-image: url("../images/Team/teamHeader.png");
+  position: relative;
+  height: 200px;
+}
+.teamImg{
+  background-image: url("../images/Team/team.png");
+  position: relative;
+
+}
 .serviceHeader{
   background-image: url("../images/flower2.jpg");
   position: relative;

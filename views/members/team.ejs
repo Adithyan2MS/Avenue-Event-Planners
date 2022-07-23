@@ -1,25 +1,67 @@
 
-  <div class="row ">
-    <div class="col-md-6 p-5 hidden">
+  <section class="teamHeader"
+  style="background-repeat: no-repeat; background-position: center top; background-size: cover; height: 300px;">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6 p-5 hidden">
 
-    </div>
-    <div class="dropdown pb-5 d-flex justify-content-center">
-        <button class="dropbtn">
-          <% if(member){ %> 
-                <%= member.name %> 
-          <% }else{ %> 
-            Account
-          <% } %> 
-        </button>
-        <div class="dropdown-content ">
-          <% if(member){ %> 
-            <a href="/team/member/logout">logout</a>
-      <% }else{ %> 
-        <a href="/team/member/login">login</a>
-      <% } %> 
-                
-                
-        </div>
+      </div>
+      <div class="col-md-6">
+        <h1 class="text-center text-white" style="font-size: 90px;">TEAM</h1>
       </div>
     </div>
   </div>
+</section> 
+<section>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6">
+        <div>
+          <div class="h2">Our Team</div>
+          <div class="section-para">
+            <p>
+              Avenue Event Planning and Management was established in 2022, An Indian event planners producing and executing Wedding, Social Gathering and Corporate events. We then quickly grew our expertise to manage large-scale public events both locally and abroad. We constantly pushing creative boundaries, thinking of novel concepts and strategies to engage our clients and their audiences, as well as pioneering the use of technology in events through Augmented Reality (AR), Virtual Reality (VR), and mobile applications.
+            </p>
+            <p>
+              Our forte is in the conceptualisation and production of Special Events, combining creative ideas, expert technical direction, meticulous planning and seamless execution.
+            </p>
+            <p>
+              We are one of the top Indian event planners and dedicated on-time response to our clients as We believe punctuality is the only factor that grows our business further. We value your time and make sure 100% satisfaction with the clients before starting up the events. We create a unique strategy for your events with the best combinations of colors and lights to attract audiences.
+            </p>
+            <p>
+              Our core team comprises individuals whom have the passion for events and always striving for perfection, Coming from a wide background of hospitality, public relations and even the military, we come together to form a formidable team to bring your events to success! Contact Us Today!
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="row d-flex justify-content-center">
+          <div class="p-4 col-md-12 d-flex justify-content-center">
+            <div class="teamImg" style="width:470px; height: 350px;">
+                
+            </div>
+          </div>
+          <div class="row memberlogin col-md-12 bg-warning" style=" width: 400px;">
+            <div class="col-md-12 h4 text-center">Member Login</div>
+            <div class="col-md-12">
+              <form action="/member/login" method="post" enctype="application/x-www-form-urlencoded">
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Email address</label>
+                        <input type="email" class="form-control" name="email" aria-describedby="emailHelp" placeholder="Enter email">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">Password</label>
+                        <input type="password" class="form-control" name="password" placeholder="Password">
+                    </div>
+                    <div class="p-3">
+                        <button type="submit" class="btn btn-primary float-right bg-success">LogIn</button>
+                    </div>
+                </form>
+            </div>
+          </div>
+        </div>
+        
+      </div>
+    </div>
+  </div>
+</section>

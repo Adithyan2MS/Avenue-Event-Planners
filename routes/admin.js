@@ -4,6 +4,8 @@ const { redirect } = require('express/lib/response')
 const { load } = require('nodemon/lib/config')
 const router = express.Router()
 require('dotenv').config();
+const sendMail = require('../services/emailService')
+
 
 var helper = require('../helpers/admin-helper') 
 
@@ -15,20 +17,16 @@ router.post('/login',(req,res)=>{
     helper.doLogin(req.body).then((response)=>{
         if(response.status){
             res.redirect('/admin/home')
-
-            // res.render('/home',{layout: 'layouts/adminLayout.ejs'})
-          }else{
-              console.log("invalid username or password");
+        }else{
+            console.log("invalid username or password");
             res.redirect('/admin')
-          }
+        }
     })
 
 })
 router.get('/home',async(req,res)=>{
     
     await helper.getAllDetails().then((details)=>{
-
-        // console.log(details);
         res.render('admin/home',{layout: 'layouts/adminLayout.ejs',details})
     })
 })
@@ -36,13 +34,11 @@ router.get('/signup',(req,res)=>{
     res.render('admin/signup',{layout: 'layouts/adminLayout.ejs'})
 })
 router.post('/signup',(req,res)=>{
-    // console.log(req.body)
     helper.doSignup(req.body).then((response)=>{
         if(response)
         {
             console.log("added");
             res.redirect('/admin')
-            // res.render('admin/login',{layout: 'layouts/adminLayout.ejs'})
         }
         else{
             console.log("error");
@@ -50,56 +46,53 @@ router.post('/signup',(req,res)=>{
     })
 })
 router.get('/home/view-details/:userid/:eventid',async(req,res)=>{
-    // console.log(req.params.userid);
-    // console.log(req.params.eventid)
         await helper.getEventDetails(req.params.userid,req.params.eventid).then(([members,detail])=>{
 
-        // console.log(detail);
-        // var obj ={}
-        // obj.detail=detail
-        // obj.members=members
         res.render('admin/view-details',{layout: 'layouts/adminLayout.ejs',members,detail})
     })
 })
 router.get('/schedules',async(req,res)=>{
     await helper.getAcceptedDetail().then((datas)=>{
-        // console.log("hhguguu");
-        // console.log(datas);
-        
         res.render('admin/schedules',{layout: 'layouts/adminLayout.ejs',datas})
     })
     
 })
-// router.get('/home/view-details/accept/:userid/:eventid',async(req,res)=>{
-//     helper.acceptDetail(req.params.userid,req.params.eventid).then(()=>{
-//         res.redirect('/admin/home')
-//     })
-   
-
-// })
 router.post('/acceptdetail',(req,res)=>{
-    console.log("jbjb");
     console.log(req.body);
     helper.acceptDetail(req.body).then(()=>{
-        res.redirect('/admin/home')
+        helper.deleteEvent(req.body.id,req.body.eventid).then(()=>{
+            res.redirect('/admin/home')
+        })
+        const emailFrom="adithyan2ms@gmail.com"
+        sendMail({
+            from:emailFrom,
+            to:req.body.email,
+            subject:"Avenue Hospitality - Event request Accepted",
+            text:"",
+            html:require('../services/emailTemplates/eventAccept')({
+                name:req.body.name,
+                emailFrom:emailFrom,
+                eventType:req.body.eventType,
+                date:req.body.date
+            })
+        })
     })
 })
 router.get('/home/addMember',(req,res)=>{
     res.render('admin/add-member',{layout: 'layouts/adminLayout.ejs'})
 })
 router.post('/addMember',(req,res)=>{
-    console.log("*****"+req.body.email)
     const memberPassword=req.body.password
     helper.addMemberDetails(req.body).then((id)=>{
         let image=req.files.image
         image.mv('./public/images/members/'+id+'.jpg',(err,done)=>{
             if(!err){
+                res.redirect('/admin/home/addMember')
                 const emailTo=req.body.email
                 const emailFrom="adithyan2ms@gmail.com"
                 if(!emailTo){
                     return res.status(422).send({error:"All fields are required"})
                 }
-                const sendMail = require('../services/emailService')
                     sendMail({
                         from:emailFrom,
                         to:emailTo,
@@ -113,7 +106,6 @@ router.post('/addMember',(req,res)=>{
                             loginLINK:`${process.env.APP_BASE_URL}/team/member/login`
                         })
                     })
-                res.redirect('/admin/home/addMember')
             }else{
                 console.log(err);
             }
@@ -148,10 +140,21 @@ router.post('/home/add-portfolio',(req,res)=>{
     })
 })
 router.get('/home/view-details-reject/:dataId/:eventId',(req,res)=>{
-    console.log("ggggg");
-    // console.log(req.params.id);
-    helper.deleteEvent(req.params.dataId,req.params.eventId).then(()=>{
+    const emailFrom="adithyan2ms@gmail.com"
+    helper.deleteEvent(req.params.dataId,req.params.eventId).then(([user,event])=>{
         res.redirect('/admin/home')
+        sendMail({
+            from:emailFrom,
+            to:user.email,
+            subject:"Avenue Hospitality - Event request rejected",
+            text:"",
+            html:require('../services/emailTemplates/eventReject')({
+                name:user.name,
+                emailFrom:emailFrom,
+                eventType:event.eventType,
+                date:event.date
+            })
+        })
     })
 
 })

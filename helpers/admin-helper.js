@@ -62,7 +62,6 @@ module.exports={
     getAllDetails:()=>{
         return new Promise(async(resolve,reject)=>{
             let details= await eventDetailModel.find()
-            // resolve(details)
 
             let data =await eventDetailModel.aggregate([
                 {
@@ -101,7 +100,6 @@ module.exports={
                 }
             ]).then((data)=>{
                 resolve(data)
-                console.log(data);
             })
         })
     },
@@ -244,19 +242,20 @@ module.exports={
         })
     },
     deleteEvent:(dataId,eventId)=>{
-        return new Promise((resolve,reject)=>{
-            console.log("eventid is "+eventId);
-            console.log(dataId);
-            // let iddd = eventDetailModel.collection.collectionName.eventdetail._id
-            // console.log(iddd);
+        return new Promise(async(resolve,reject)=>{
+            let data = await eventDetailModel.findOne({_id:ObjectId(dataId)})
+            let userId = data.user
+            const event = await eventDetailModel.findOne({_id:ObjectId(dataId)}).select({eventdetail:{$elemMatch:{_id:ObjectId(eventId)}}})
+            let user= await UserDetailModel.findOne({_id:ObjectId(userId)})
             
             eventDetailModel.findOneAndUpdate(
                 { _id: ObjectId(dataId) },
                 { $pull: { eventdetail: { _id:ObjectId(eventId)  } } },
                 { new: true }
-              )
-                .then(eventdetail => console.log(eventdetail))
-                .catch(err => console.log(err));
+            ).then(()=>{
+                    resolve([user,event.eventdetail[0]])
+            })
+            .catch(err => console.log(err));
         })
     },
     deleteSchedule:(id)=>{
