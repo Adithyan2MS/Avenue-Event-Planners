@@ -112,7 +112,9 @@ router.post('/member/login',(req,res)=>{
             req.session.member=response.member
             req.session.member.loggedIn=true
             let member=response.member
-            res.render('members/member',{member})
+            userhelper.getMembersEvent(member).then((event)=>{
+                res.render('members/member',{member,event})
+            })
         }else{
             console.log('invalid username or password');
             res.redirect('/team')

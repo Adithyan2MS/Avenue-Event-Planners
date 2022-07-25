@@ -1,58 +1,81 @@
-<div class="row">
-    <div class="col-md-12 mx-auto">
-        <div class="bg-white shadow rounded overflow-hidden float-left">
-            <div class="px-4 pt-0 pb-4 cover">
-                <div class="media align-items-end profile-head p-5">
-                    <div class="profile mr-3">
-                        <img src="/images/members/<%= member._id %>.jpg" alt="..." width="130" class="rounded mb-2 img-thumbnail">
-                    </div>
-                    <div class="media-body mb-5 text-white">
-                        <div class=" text-white" style="float: right;">
-                            <a href="" class="btn btn-success">Edit Profile</a>
-                        </div>
-                        <h4 class="mt-0 mb-0"><%= member.name %> </h4>
-                        <p class="small mb-4"><i class="fas fa-map-marker-alt mr-2"></i><%= member.city %> </p>
-                        
-                    </div>
-                    
-                    
+<section class="memberHeader"
+style="background-repeat: no-repeat; background-position: center top; background-size: cover; height: 300px;">
+<div class="container">
+  <div class="row text-dark">
+    <div class="col-md-12 p-5 hidden">
 
-                </div>
-                
-            </div>
-
-        </div>
-        
     </div>
+    <div class="profile mr-3">
+        <img src="/images/members/<%= member._id %>.jpg" alt="..." width="130" class="rounded mb-2 img-thumbnail">
+    </div>
+    <div class="media-body mb-5">
+        <div class=" text-white" style="float: right;">
+            <a href="" class="btn btn-success">Edit Profile</a>
+        </div>
+        <h4 class="mt-0 mb-0"><%= member.name %> </h4>
+        <p class="small mb-4"><i class="fas fa-map-marker-alt mr-2"></i><%= member.city %> </p>
+        
+    </div> 
+  </div>
 </div>
+</section> 
+  
+  
+  
+  <!-- <div class="container" style="width: 100%;">
+    <div class="row cover">
+        <div class="col-md-12">
+                <div class="profile mr-3">
+                    <img src="/images/members/<%= member._id %>.jpg" alt="..." width="130" class="rounded mb-2 img-thumbnail">
+                </div>
+                <div class="media-body mb-5 text-white">
+                    <div class=" text-white" style="float: right;">
+                        <a href="" class="btn btn-success">Edit Profile</a>
+                    </div>
+                    <h4 class="mt-0 mb-0"><%= member.name %> </h4>
+                    <p class="small mb-4"><i class="fas fa-map-marker-alt mr-2"></i><%= member.city %> </p>
+                    
+                </div>            
+        </div>
+    </div>
+  </div> -->
+
 <section>
     <div class="container">
         <div class="row">
             <div class="col-md-4">
+                <div class="h2 text-center text-danger">My Events</div>
+                    <% for(var i=0; i<event.length; i++) {%>
+                        <div class="me text-center border border-info ">
+                            <%= event[i].eventType %> Event on <%= event[i].date %> 
+                        </div>
+                     <% } %>
+                
             </div>
-            <div class="col-md-6">
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th scope="col">Name</th>
-                            <th scope="col">Email</th>
-                            <th scope="col">Event type</th>
-                            <th scope="col">Date</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                    </tbody>
-                </table>
-            </div>
-            <div class="col-md-2">
+            <div class="col-md-4 verticalLine">
 
             </div>
+
         </div>
     </div>
 </section>
 
 
 <style>
+    .me {
+  height: 100px;
+  line-height: 100px;
+  text-align: center;
+  border: 2px dashed #f69c55;
+  font-family: "Montserrat", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+
+}
+.me:hover {
+  background-color: #575151;
+  color: #f0ad4e;
+
+}
+
     .profile-head {
         transform: translateY(5rem)
     }

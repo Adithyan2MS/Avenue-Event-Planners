@@ -14,21 +14,17 @@ router.get('/',(req,res)=>{
 })
 router.post('/login',(req,res)=>{
     console.log(req.body.Email);
-    helper.doLogin(req.body).then((response)=>{
+    helper.doLogin(req.body).then(async(response)=>{
         if(response.status){
-            res.redirect('/admin/home')
+            await helper.getAllDetails().then((details)=>{
+                res.render('admin/home',{layout: 'layouts/adminLayout.ejs',details})
+            })
         }else{
             console.log("invalid username or password");
             res.redirect('/admin')
         }
     })
 
-})
-router.get('/home',async(req,res)=>{
-    
-    await helper.getAllDetails().then((details)=>{
-        res.render('admin/home',{layout: 'layouts/adminLayout.ejs',details})
-    })
 })
 router.get('/signup',(req,res)=>{
     res.render('admin/signup',{layout: 'layouts/adminLayout.ejs'})

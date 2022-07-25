@@ -11352,6 +11352,11 @@ p {
   position: relative;
   height: 200px;
 }
+.memberHeader{
+  background-image: url("../images/memberbanner.png");
+  position: relative;
+  height: 200px;
+}
 .contactHeader{
   background-image: url("../images/eventplan1.jpg");
   position: relative;
@@ -12002,3 +12007,7 @@ img{
       border-left: none;   
     }
   }
+.memberView{
+  width: 500px;
+  height: 100px;
+}

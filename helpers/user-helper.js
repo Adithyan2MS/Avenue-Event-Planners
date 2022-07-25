@@ -4,6 +4,8 @@ const bcrypt=require('bcrypt')
 const EventDetailModel = require("../models/eventdetails")
 const MemberDetailModel = require("../models/memberdetails")
 const PortfolioDetailModel = require("../models/portfoliodetails")
+const { reject } = require("bcrypt/promises")
+const AcceptedEventModel = require("../models/acceptedEvent")
 var ObjectId=require('mongodb').ObjectID
 
 
@@ -113,6 +115,12 @@ module.exports={
         return new Promise(async(resolve,reject)=>{
             let portfolios= await PortfolioDetailModel.find()
             resolve(portfolios)
+        })
+    },
+    getMembersEvent:(member)=>{
+        return new Promise(async(resolve,reject)=>{
+            let event = await AcceptedEventModel.find({members:ObjectId(member._id)})
+            resolve(event)
         })
     }
 }

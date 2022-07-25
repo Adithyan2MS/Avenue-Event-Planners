@@ -1,26 +1,31 @@
 <section>
     <div class="container">
-        <div class="row text-center">
-            <div class="col-md-4" style="width: 400px;">
-                <div class=" p-4">
-                    <a href="/admin/signup" class="btn btn-primary btn-xl">Add New Admin
-                    </a>
-                </div>
-                <div class=" p-4">
-                    <a href="/admin/home/addMember" class="btn btn-primary btn-xl">Add Team Members
-                    </a>
-                </div>
-                <div class=" p-4">
-                    <a href="/admin/home/add-portfolio" class="btn btn-primary btn-xl">Add Portfolio Images
-                    </a>
-                </div>
-                <div class=" p-4">
-                    <a href="/admin/schedules" class="btn btn-primary btn-xl">Schedules</a>
-                </div>
+        <div class="row text-center d-flex justify-content-center">
+            <div class="col-md-4 text-uppercase pt-2" style="width: 400px;">
+                <a href="/admin/signup">
+                    <div class="me h1">
+                        Add admin
+                    </div>
+                </a>
+                <a href="/admin/home/addMember">
+                    <div class="me h1">
+                        Add Team Members
+                    </div>
+                </a>
+                <a href="/admin/home/add-portfolio">
+                    <div class="me h1">
+                        Add Portfolio Images
+                    </div>
+                </a>
+                <a href="/admin/schedules">
+                    <div class="me h1">
+                        Schedules
+                    </div>
+                </a>
             </div>
-            <div class="col-md-8">
+            <div class="col-md-8 verticalLine">
 
-                <div class="">
+                <div class="" style="overflow-x:auto;">
 
                     <table class="table shadow-lg">
                         <thead>
@@ -75,3 +80,28 @@
         </div>
     </div>
 </section>
+<style>
+    .me {
+        font-size: 20px;
+        color: white;
+        height: 100px;
+        line-height: 100px;
+        text-align: center;
+        background-color: #ffbb33;
+        border-radius: 2%;
+        font-family: "Montserrat", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+
+}
+.me:hover {
+  background-color: #575151;
+  color: #f0ad4e;
+
+}
+a{
+    text-decoration: none;
+}
+body{
+    font-family: "Montserrat", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+
+}
+</style>
