@@ -4611,6 +4611,7 @@ textarea.form-control-lg {
   width: 100%;
 }
 
+
 .card-img,
 .card-img-top {
   border-top-left-radius: calc(0.25rem - 1px);
@@ -11315,7 +11316,30 @@ p {
   font-family: "Roboto Slab", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
   margin-bottom: 4rem;
 }
-
+.sqs-block-image 
+{
+  height:18rem; width:22rem
+}
+@media only screen and (max-width:640px) 
+{
+   .sqs-block-image 
+   {
+     width: 100%; 
+     height: 100%;
+     margin:auto
+    }
+}
+/* portfolio contact heading */
+.reheader{
+  font-size: 90px;
+}
+@media only screen and (max-width:640px) 
+{
+   .reheader 
+   {
+     font-size: 60px;
+    }
+}
 @media (min-width: 768px) {
   section {
     padding: 9rem 0;
@@ -11336,6 +11360,11 @@ p {
   justify-content: center;
   padding: 0;
   border-radius: 100%;
+}
+.subServices{
+  background-image: url("../images/subService.jpg");
+  position: relative;
+  height: 200px;
 }
 .teamHeader{
   background-image: url("../images/Team/teamHeader.png");

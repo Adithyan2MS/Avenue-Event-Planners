@@ -7,7 +7,7 @@
   
         </div>
         <div class="col-md-6">
-          <h1 class="text-center text-white" style="font-size: 90px;">PORTFOLIO</h1>
+          <h1 class="text-center text-white reheader">PORTFOLIO</h1>
         </div>
       </div>
     </div>
@@ -16,18 +16,9 @@
         <div class="container mt-5">
             <div class="row">
                 <% portfolios.forEach((portfolio)=>{ %> 
-                <div class="col-md-4 p-5">
-                    <div class="" >
+                <div class="col-lg-6 col-xl-4	 p-5">
                         <img src="/images/portfolio/<%= portfolio._id %>.jpg"
-                            class="card-img-top align-center" alt="..."
-                            style="height:20rem; width:24rem">
-                        <!-- <div class="card-body">
-                            <h5 class="card-title">{{this.Name}}</h5>
-                            <p class="card-text">{{this.Description}}</p>
-                            <p class="card-text">Rs.{{this.Price}}</p>
-                            <button onclick="addToCart('{{this._id}}')" class="btn btn-primary">Add to cart</button>
-                        </div> -->
-                    </div>
+                            class=" sqs-block-image align-center" alt="...">
                 </div>
                 <% }) %> 
             </div>
