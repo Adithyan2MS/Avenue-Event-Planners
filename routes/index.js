@@ -58,7 +58,7 @@ router.post('/contact/addDetails',(req,res)=>{
                 emailFrom:user.email,
                 eventType:req.body.eventType,
                 date:req.body.date,
-                Adminlogin:`${process.env.APP_BASE_URL}/admin`
+                Adminlogin:`${process.env.APP_BASE_URL}`
             })
         })
     })
