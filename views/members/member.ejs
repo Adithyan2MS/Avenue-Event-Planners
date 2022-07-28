@@ -1,3 +1,42 @@
+
+<style>
+    .me {
+  height: 100px;
+  line-height: 100px;
+  text-align: center;
+  border: 2px dashed #f69c55;
+  font-family: "Montserrat", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+
+}
+.me:hover {
+  background-color: #575151;
+  color: #f0ad4e;
+
+}
+
+    .profile-head {
+        transform: translateY(5rem)
+    }
+
+    .cover {
+        background-image: url(https://images.unsplash.com/photo-1530305408560-82d13781b33a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1352&q=80);
+        background-size: cover;
+        background-repeat: no-repeat
+    }
+
+    body {
+        min-height: 100vh;
+        overflow-x: hidden;
+    }
+    .topcorner{
+        position: absolute;
+        top: 20;
+        right: 0;
+    }
+    
+
+</style>
+
 <section class="memberHeader"
 style="background-repeat: no-repeat; background-position: center top; background-size: cover; height: 300px;">
 <div class="container">
@@ -48,12 +87,13 @@ style="background-repeat: no-repeat; background-position: center top; background
                     <% for(var i=0; i<event.length; i++) {%>
                         <div class="me text-center border border-info ">
                             <%= event[i].eventType %> Event on <%= event[i].date %> 
+                            <!-- <a href="/chatwindow" class="btn bg-success text-white">chat</a> -->
                         </div>
                      <% } %>
                 
             </div>
-            <div class="col-md-4 verticalLine">
-
+            <div class="col-md-8 verticalLine">
+                
             </div>
 
         </div>
@@ -61,41 +101,7 @@ style="background-repeat: no-repeat; background-position: center top; background
 </section>
 
 
-<style>
-    .me {
-  height: 100px;
-  line-height: 100px;
-  text-align: center;
-  border: 2px dashed #f69c55;
-  font-family: "Montserrat", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 
-}
-.me:hover {
-  background-color: #575151;
-  color: #f0ad4e;
-
-}
-
-    .profile-head {
-        transform: translateY(5rem)
-    }
-
-    .cover {
-        background-image: url(https://images.unsplash.com/photo-1530305408560-82d13781b33a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1352&q=80);
-        background-size: cover;
-        background-repeat: no-repeat
-    }
-
-    body {
-        min-height: 100vh;
-        overflow-x: hidden;
-    }
-    .topcorner{
-        position: absolute;
-        top: 20;
-        right: 0;
-    }
-</style>
 
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.bundle.min.js"></script>

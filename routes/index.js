@@ -4,8 +4,8 @@ const userHelper = require('../helpers/user-helper')
 const router = express.Router()
 const sendMail = require('../services/emailService')
 
+var userhelper = require('../helpers/user-helper')
 
-var userhelper = require('../helpers/user-helper') 
 
 const verifyLogin=(req,res,next)=>{
     if(req.session.user.loggedIn)
@@ -114,6 +114,7 @@ router.post('/member/login',(req,res)=>{
             let member=response.member
             userhelper.getMembersEvent(member).then((event)=>{
                 res.render('members/member',{member,event})
+                
             })
         }else{
             console.log('invalid username or password');
@@ -124,6 +125,11 @@ router.post('/member/login',(req,res)=>{
 router.get('/team/member/logout',(req,res)=>{
     req.session.member=null
     res.redirect('/team')
+})
+router.get('/chatwindow',(req,res)=>{
+    
+      
+    res.render('members/chat')
 })
 
 
