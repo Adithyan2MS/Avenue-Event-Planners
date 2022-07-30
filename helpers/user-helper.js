@@ -46,19 +46,28 @@ module.exports={
     },
     doSignup:(data)=>{
         return new Promise(async(resolve,reject)=>{
-            data.password=await bcrypt.hash(data.password,10)
-            var UserModel =  UserDetailModel(data)
-            await UserModel.save((err,data)=>{
-                if(err){
-                    console.error(err);
-                }
-                else{
-                    // console.log("data added");
-                    resolve(data)
-                    // response=true
-                    // resolve(response)
-                }
-            })
+            let emailexist = await UserDetailModel.findOne({email:data.email})
+            console.log(emailexist);
+            let response={}
+            if(!emailexist){
+                data.password=await bcrypt.hash(data.password,10)
+                var UserModel =  UserDetailModel(data)
+                await UserModel.save((err,data)=>{
+                    if(err){
+                        response.status=false
+                        resolve(response)
+                        console.error(err);
+                    }
+                    else{
+                        response.status=true
+                        resolve(response)
+                        
+                    }
+                })
+            }else{
+                response.status=false
+                resolve(response)
+            }
         })
     },
     doLogin:(data)=>{

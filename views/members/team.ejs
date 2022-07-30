@@ -45,6 +45,9 @@
             <div class="col-md-12 h4 text-center">Member Login</div>
             <div class="col-md-12">
               <form action="/member/login" method="post" enctype="application/x-www-form-urlencoded">
+                    <% if(memberLoginErr){ %> 
+                      <div class="text-success">Invalid Username or Password</div>
+                    <% } %> 
                     <div class="form-group">
                         <label for="exampleInputEmail1">Email address</label>
                         <input type="email" class="form-control" name="email" aria-describedby="emailHelp" placeholder="Enter email">

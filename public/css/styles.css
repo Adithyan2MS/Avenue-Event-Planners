@@ -11329,6 +11329,21 @@ p {
      margin:auto
     }
 }
+/* map alignment */
+.mapouter{
+  position:relative;
+  text-align:right;
+  height: 450px;
+  width:250px;
+}
+@media only screen and (max-width:640px) 
+{
+   .mapouter
+   {
+     width: 100%; 
+     height: 100%;
+    }
+}
 /* portfolio contact heading */
 .reheader{
   font-size: 90px;
@@ -11924,16 +11939,16 @@ section#contact form#contactForm :-ms-input-placeholder {
 .dropdown {
   position: relative;
   display: inline-block;
-  font-family: 'Courgette', cursive;
+  font-family: "Montserrat", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 
 }
 
 /* Dropdown Content (Hidden by Default) */
 .dropdown-content {
+  width:auto;
   display: none;
   position: absolute;
   background-color: #f9f9f9;
-  min-width: 160px;
   box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
   z-index: 1;
   right: 0;
