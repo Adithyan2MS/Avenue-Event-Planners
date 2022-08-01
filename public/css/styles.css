@@ -11329,6 +11329,19 @@ p {
      margin:auto
     }
 }
+.sqs-block-image2
+{
+  height: 16rem; width:20rem
+}
+@media only screen and (max-width:640px) 
+{
+   .sqs-block-image2
+   {
+     width: 100%; 
+     height: 100%;
+     margin:auto
+    }
+}
 /* map alignment */
 .mapouter{
   position:relative;

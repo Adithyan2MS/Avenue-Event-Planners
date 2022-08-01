@@ -57,7 +57,7 @@ router.post('/acceptdetail',(req,res)=>{
     console.log(req.body);
     helper.acceptDetail(req.body).then(()=>{
         helper.deleteEvent(req.body.id,req.body.eventid).then(()=>{
-            res.redirect('/admin/home')
+            res.redirect('/admin/schedules')
         })
         const emailFrom="adithyan2ms@gmail.com"
         sendMail({
@@ -118,7 +118,7 @@ router.get('/home/scheduled-details/:id',(req,res)=>{
     
 })
 router.get('/home/add-portfolio',(req,res)=>{
-    res.render('admin/add-portfolio')
+    res.render('admin/add-portfolio',{layout: 'layouts/adminLayout.ejs'})
 })
 router.post('/home/add-portfolio',(req,res)=>{
     console.log(req.body);
