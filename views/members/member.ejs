@@ -196,7 +196,7 @@ style="background-repeat: no-repeat; background-position: center top; background
                         <div class="form-row" style="display:block;">
                           <div class="form-group" style="display: inline-block;">
                               <label for="inputPassword4">New Email</label>
-                              <input type="email" class="form-control" name="email" id="inputPassword4" placeholder=<%= member.email %> >
+                              <input type="email" class="form-control" name="email" id="inputPassword4" required placeholder=<%= member.email %> >
                           </div>
                           <div class="" style="display: inline-block;">
                               <button type="submit" class="btn btn-primary">Change</button>
@@ -213,11 +213,11 @@ style="background-repeat: no-repeat; background-position: center top; background
                         <div class="form-row" style="display:block;">
                           <div class="form-group" style="display: inline-block;">
                               <label for="inputPassword4">New Password</label>
-                              <input type="text" class="form-control" name="password1" id="inputPassword4" placeholder="Password">
+                              <input type="text" class="form-control" name="password1" id="inputPassword4" placeholder="Password" required>
                           </div>
                           <div class="form-group" style="display: inline-block;">
                             <label for="inputPassword4">Confirm Password</label>
-                            <input type="text" class="form-control" name="password2" id="inputPassword4" placeholder="Password">
+                            <input type="text" class="form-control" name="password2" id="inputPassword4" placeholder="Password" required>
                           </div>
                           <div class="" style="display: inline-block;">
                               <button type="submit" class="btn btn-primary">Change</button>

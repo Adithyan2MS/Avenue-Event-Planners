@@ -171,7 +171,7 @@ module.exports={
     changePassword:(memId,passData)=>{
         return new Promise(async(resolve,reject)=>{
             let status=false
-            if(passData.password1==passData.password2)
+            if(passData.password1==passData.password2&&passData.password1!="")
             {
                 passData.password1=await bcrypt.hash(passData.password1,10)
                 await MemberDetailModel.updateOne(
