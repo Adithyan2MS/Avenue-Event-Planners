@@ -12,9 +12,6 @@ const io = new Server(server);
 
 
 
-
-
-
 const bodyParser = require('body-parser')
 var session=require('express-session')
 var fileUpload=require('express-fileupload')
@@ -23,7 +20,7 @@ app.use(bodyParser.urlencoded({
     extended: true
 }));
 app.use(bodyParser.json());
-app.use(session({secret:"key",cookie:{maxAge:60000}}))
+app.use(session({secret:"key",cookie:{maxAge:600000}}))
 
 const PORT = process.env.PORT || 3000
 

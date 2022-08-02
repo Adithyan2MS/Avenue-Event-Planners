@@ -123,8 +123,10 @@ router.post('/member/login',(req,res)=>{
             req.session.membeLoggedIn=true
             req.session.memberLoginErr=false 
             let member=response.member
+            let emailstatus=true //change edit status
+            let passstatus=true
             userhelper.getMembersEvent(member).then((event)=>{
-                res.render('members/member',{member,event})
+                res.render('members/member',{member,event,emailstatus,passstatus})
                 
             })
         }else{
@@ -137,12 +139,40 @@ router.get('/team',(req,res)=>{
     let memberLoginErr=req.session.memberLoginErr
     res.render('members/team',{memberLoginErr})
 })
-router.get('/team/member/logout',(req,res)=>{
+router.get('/team/member/memberLogout',(req,res)=>{
     req.session.member=null
+    req.session.membeLoggedIn=false
     res.redirect('/team')
 })
 router.get('/chatwindow',(req,res)=>{
     res.render('members/chat')
+})
+router.post('/team/member/change-email/:id',(req,res)=>{
+    userhelper.changeEmail(req.params.id,req.body.email).then((emailstatus)=>{
+        if(emailstatus==true)
+            console.log("email changed");
+        else
+            console.log("email unchanged");
+        let member=req.session.member
+        let passstatus=true
+        userhelper.getMembersEvent(member).then((event)=>{
+            res.render('members/member',{member,event,emailstatus,passstatus})
+        })
+    })
+})
+router.post('/team/member/change-password/:id',(req,res)=>{
+    console.log(req.body);
+    userhelper.changePassword(req.params.id,req.body).then((passstatus)=>{
+        if(passstatus==true)
+            console.log("password changed");
+        else
+            console.log("password unchanged");
+        let member=req.session.member
+        let emailstatus=true
+        userhelper.getMembersEvent(member).then((event)=>{
+            res.render('members/member',{member,event,emailstatus,passstatus})
+        })
+    })
 })
 
 

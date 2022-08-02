@@ -131,5 +131,65 @@ module.exports={
             let event = await AcceptedEventModel.find({members:ObjectId(member._id)})
             resolve(event)
         })
+    },
+    getMember:(memId)=>{
+        return new Promise(async(resolve,reject)=>{
+            await MemberDetailModel.findOne({_id:memId}).then((member)=>{
+                resolve(member)
+                // console.log(member)
+            })
+        })
+    },
+    changeEmail:(memId,newEmail)=>{
+        return new Promise(async(resolve,reject)=>{
+            let emailexist=false;
+            let status;
+            let data =await MemberDetailModel.findOne({email:newEmail})
+            if(data)
+                emailexist=true
+            if(emailexist==false)
+            {
+                await MemberDetailModel.updateOne(
+                    {_id:memId},
+                    {
+                        $set:
+                        {
+                            email:newEmail
+                        }
+                    }
+                ).then(()=>{
+                    status=true
+                    resolve(status)
+                })
+            }else
+            {
+                status=false
+                resolve(status)
+            }
+        })
+    },
+    changePassword:(memId,passData)=>{
+        return new Promise(async(resolve,reject)=>{
+            let status=false
+            if(passData.password1==passData.password2)
+            {
+                passData.password1=await bcrypt.hash(passData.password1,10)
+                await MemberDetailModel.updateOne(
+                    {_id:memId},
+                    {
+                        $set:
+                        {
+                            password:passData.password1
+                        }
+                    }
+                ).then(()=>{
+                    status=true
+                    resolve(status)
+                })
+            }else{
+                status=false
+                resolve(status)
+            }
+        })
     }
 }

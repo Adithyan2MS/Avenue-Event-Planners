@@ -82,6 +82,38 @@
 .dropdown:hover .dropbtn {
   background-color: #3e8e41;
 }
+@media only screen and (max-width:767px) 
+{
+   .headAlign1
+   {
+     margin-top: 150px;
+     font-size: 10px;
+     
+    }
+    
+    .headAlign2
+    {
+      margin-top: 150px;
+      font-size: 12px;
+    }
+    .headAlign2 img{
+      width: 80px;
+      height: 80px;
+    }
+    .dropbtn{
+      width: 80px ;
+      height: 40px;
+      font-size: 10px;
+      overflow-x: auto;
+    }
+    .below-section{
+      margin-top: 80px;
+  }
+    
+}
+.edit-profile-container{
+  font-family: "Montserrat", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+}
 
 
 </style>
@@ -93,25 +125,27 @@ style="background-repeat: no-repeat; background-position: center top; background
     <div class="col-md-12 p-5 hidden">
 
     </div>
-    <div class="profile mr-3">
-        <img src="/images/members/<%= member._id %>.jpg" alt="..." width="130" class="rounded mb-2 img-thumbnail">
+    <div class="">
+      <div class=" text-white d-flex justify-content-end" style="float: right; width: 100px;">
+        <div class="dropdown headAlign1">
+            <button class="dropbtn">
+                <div class="" style="font-size: 14px"><%= member.name %></div>
+            </button>
+            <div class="dropdown-content">
+                <a href="/team/member/memberLogout">logout</a>
+            </div> 
+        </div>
+      </div>
+      <div style="float: left;" class="headAlign2">
+        <div class="profile mr-3" >
+          <img src="/images/members/<%= member._id %>.jpg" alt="..." width="130" class="rounded mb-2 img-thumbnail">
+        </div>
+        <div class="media-body mb-5">
+          <div class="mt-0 mb-0 " style="font-size:larger;"><b><%= member.name %></b> </div>
+          <p class="small mb-4"><i class="fas fa-map-marker-alt mr-2"></i><%= member.city %> </p>
+      </div> 
+      </div>
     </div>
-    <div class="media-body mb-5">
-        <!-- <div class=" text-white mb-5" style="float: right; width: 250px;">
-            <div class="dropdown pb-5">
-                <button class="dropbtn">
-                    < member.name >
-                </button>
-                <div class="dropdown-content">
-                    <a href="">Edit profile</a>
-                    <a href="/logout">logout</a>
-                </div> 
-              </div>
-        </div> -->
-        <h4 class="mt-0 mb-0"><%= member.name %> </h4>
-        <p class="small mb-4"><i class="fas fa-map-marker-alt mr-2"></i><%= member.city %> </p>
-        
-    </div> 
   </div>
 </div>
 </section> 
@@ -136,7 +170,7 @@ style="background-repeat: no-repeat; background-position: center top; background
     </div>
   </div> -->
 
-<section>
+<section class="below-section">
     <div class="container">
         <div class="row">
             <div class="col-md-6">
@@ -149,8 +183,64 @@ style="background-repeat: no-repeat; background-position: center top; background
                      <% } %>
                 
             </div>
-            <div class="col-md-6 verticalLine">
-                
+            <div class="col-md-6 verticalLine edit-profile-container">
+                <div>
+                  <div class="h3 text-center">Edit Profile</div>
+                  <div class="border">
+                    <div>
+                      <div class="h6">Change Mail Id</div>
+                      <% if(emailstatus==false){ %>
+                        <div class="text-warning font-italic">Email already registered</div> 
+                      <%  } %> 
+                      <form class="" action="/team/member/change-email/<%= member._id %>" method="post" enctype="multipart/form-data">
+                        <div class="form-row" style="display:block;">
+                          <div class="form-group" style="display: inline-block;">
+                              <label for="inputPassword4">New Email</label>
+                              <input type="email" class="form-control" name="email" id="inputPassword4" placeholder=<%= member.email %> >
+                          </div>
+                          <div class="" style="display: inline-block;">
+                              <button type="submit" class="btn btn-primary">Change</button>
+                          </div>
+                        </div>
+                      </form>
+                    </div><hr>
+                    <div>
+                      <div class="h6">Change Password</div>
+                      <% if(passstatus==false){ %>
+                        <div class="text-warning font-italic">Password does'nt match</div> 
+                      <%  } %> 
+                      <form class="" action="/team/member/change-password/<%= member._id %>" method="post" enctype="multipart/form-data">
+                        <div class="form-row" style="display:block;">
+                          <div class="form-group" style="display: inline-block;">
+                              <label for="inputPassword4">New Password</label>
+                              <input type="text" class="form-control" name="password1" id="inputPassword4" placeholder="Password">
+                          </div>
+                          <div class="form-group" style="display: inline-block;">
+                            <label for="inputPassword4">Confirm Password</label>
+                            <input type="text" class="form-control" name="password2" id="inputPassword4" placeholder="Password">
+                          </div>
+                          <div class="" style="display: inline-block;">
+                              <button type="submit" class="btn btn-primary">Change</button>
+                          </div>
+                        </div>
+                      </form>
+                    </div><hr>
+                    <div>
+                      <div class="h6">Change Profile Picture</div>
+                      <form class="" action="/team/member/change-image/<%= member._id %>" method="post" enctype="multipart/form-data">
+                        <div class="form-row" style="display:block;">
+                          <div class="form-group" style="display: inline-block;">
+                            <label for="">Image</label>
+                            <input type="file" name="image" class="form-control" required>
+                          </div>
+                          <div class="" style="display: inline-block;">
+                              <button type="submit" class="btn btn-primary">Change</button>
+                          </div>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                </div>
             </div>
 
         </div>
