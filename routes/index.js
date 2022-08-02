@@ -174,6 +174,20 @@ router.post('/team/member/change-password/:id',(req,res)=>{
         })
     })
 })
+router.post('/team/member/change-image/:id',(req,res)=>{
+    let image=req.files.image
+    image.mv('./public/images/members/'+req.params.id+'.jpg',(err,done)=>{
+        if(!err){
+            let member=req.session.member
+            let emailstatus,passstatus=true
+            userhelper.getMembersEvent(member).then((event)=>{
+                res.render('members/member',{member,event,emailstatus,passstatus})
+            })
+        }else{
+            console.log(err)
+        }
+    })
+})
 
 
 module.exports=router
