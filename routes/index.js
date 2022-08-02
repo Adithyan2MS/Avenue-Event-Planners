@@ -116,25 +116,7 @@ router.get('/wedding',(req,res)=>{
 router.get('/corporateEvent',(req,res)=>{
     res.render('corporate-event')
 })
-router.post('/member/login',(req,res)=>{
-    userhelper.doMemberLogin(req.body).then((response)=>{
-        if(response.status){
-            req.session.member=response.member
-            req.session.membeLoggedIn=true
-            req.session.memberLoginErr=false 
-            let member=response.member
-            let emailstatus=true //change edit status
-            let passstatus=true
-            userhelper.getMembersEvent(member).then((event)=>{
-                res.render('members/member',{member,event,emailstatus,passstatus})
-                
-            })
-        }else{
-            req.session.memberLoginErr=true
-            res.redirect('/team')
-        }
-    })
-})
+
 router.get('/team',(req,res)=>{
     let memberLoginErr=req.session.memberLoginErr
     res.render('members/team',{memberLoginErr})
@@ -147,17 +129,38 @@ router.get('/team/member/memberLogout',(req,res)=>{
 router.get('/chatwindow',(req,res)=>{
     res.render('members/chat')
 })
+router.post('/member/login',(req,res)=>{
+    userhelper.doMemberLogin(req.body).then((response)=>{
+        if(response.status){
+            req.session.member=response.member
+            req.session.membeLoggedIn=true
+            req.session.memberLoginErr=false
+            req.session.member_emailStatus=true
+            req.session.member_passStatus=true
+            res.redirect('/team/member')
+            
+        }else{
+            req.session.memberLoginErr=true
+            res.redirect('/team')
+        }
+    })
+})
+router.get('/team/member',verifyMemberLogin,(req,res)=>{
+    let member=req.session.member
+    let emailstatus = req.session.member_emailStatus
+    let passstatus = req.session.member_passStatus
+    userhelper.getMembersEvent(member).then((event)=>{
+        res.render('members/member',{member,event,emailstatus,passstatus}) 
+    })
+})
 router.post('/team/member/change-email/:id',(req,res)=>{
     userhelper.changeEmail(req.params.id,req.body.email).then((emailstatus)=>{
         if(emailstatus==true)
             console.log("email changed");
         else
             console.log("email unchanged");
-        let member=req.session.member
-        let passstatus=true
-        userhelper.getMembersEvent(member).then((event)=>{
-            res.render('members/member',{member,event,emailstatus,passstatus})
-        })
+        req.session.member_emailStatus=emailstatus
+        res.redirect('/team/member')
     })
 })
 router.post('/team/member/change-password/:id',(req,res)=>{
@@ -167,22 +170,16 @@ router.post('/team/member/change-password/:id',(req,res)=>{
             console.log("password changed");
         else
             console.log("password unchanged");
-        let member=req.session.member
-        let emailstatus=true
-        userhelper.getMembersEvent(member).then((event)=>{
-            res.render('members/member',{member,event,emailstatus,passstatus})
-        })
+        req.session.member_passStatus=passstatus
+        res.redirect('/team/member')
     })
 })
 router.post('/team/member/change-image/:id',(req,res)=>{
     let image=req.files.image
     image.mv('./public/images/members/'+req.params.id+'.jpg',(err,done)=>{
         if(!err){
-            let member=req.session.member
-            let emailstatus,passstatus=true
-            userhelper.getMembersEvent(member).then((event)=>{
-                res.render('members/member',{member,event,emailstatus,passstatus})
-            })
+            console.log("image changed");
+            res.redirect('/team/member')
         }else{
             console.log(err)
         }
