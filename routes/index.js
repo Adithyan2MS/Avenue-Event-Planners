@@ -8,14 +8,14 @@ var userhelper = require('../helpers/user-helper')
 
 
 const verifyuserLogin=(req,res,next)=>{
-    if(req.session.userloggedIn){
+    if(req.session.user){
         next()
     }else{
         res.redirect('/login')
     }
 }
 const verifyMemberLogin=(req,res,next)=>{
-    if(req.session.membeLoggedIn){
+    if(req.session.member){
         next()
     }else{
         res.redirect('/team')
@@ -32,7 +32,6 @@ router.get('/signup',(req,res)=>{
 
 router.get('/logout',(req,res)=>{
     req.session.user=null
-    req.session.userloggedIn=false
     req.session.userLoginErr=false
     res.redirect('/')
 })
@@ -62,8 +61,8 @@ router.get('/login',(req,res)=>{
 router.post('/login',(req,res)=>{
     userhelper.doLogin(req.body).then((response)=>{
         if(response.status){
-            req.session.userloggedIn=true
             req.session.user=response.user
+            req.session.user.loggedIn=true
             req.session.userLoginErr=false
             res.redirect('/')
         }else{
@@ -123,7 +122,7 @@ router.get('/team',(req,res)=>{
 })
 router.get('/team/member/memberLogout',(req,res)=>{
     req.session.member=null
-    req.session.membeLoggedIn=false
+    req.session.memberLoginErr=false
     res.redirect('/team')
 })
 router.get('/chatwindow',(req,res)=>{
@@ -133,10 +132,10 @@ router.post('/member/login',(req,res)=>{
     userhelper.doMemberLogin(req.body).then((response)=>{
         if(response.status){
             req.session.member=response.member
-            req.session.membeLoggedIn=true
+            req.session.member.LoggedIn=true
             req.session.memberLoginErr=false
-            req.session.member_emailStatus=true
-            req.session.member_passStatus=true
+            req.session.member.emailStatus=true
+            req.session.member.passStatus=true
             res.redirect('/team/member')
             
         }else{
@@ -147,8 +146,8 @@ router.post('/member/login',(req,res)=>{
 })
 router.get('/team/member',verifyMemberLogin,(req,res)=>{
     let member=req.session.member
-    let emailstatus = req.session.member_emailStatus
-    let passstatus = req.session.member_passStatus
+    let emailstatus = req.session.member.emailStatus
+    let passstatus = req.session.member.passStatus
     userhelper.getMembersEvent(member).then((event)=>{
         res.render('members/member',{member,event,emailstatus,passstatus}) 
     })
@@ -159,7 +158,7 @@ router.post('/team/member/change-email/:id',(req,res)=>{
             console.log("email changed");
         else
             console.log("email unchanged");
-        req.session.member_emailStatus=emailstatus
+        req.session.member.emailStatus=emailstatus
         res.redirect('/team/member')
     })
 })
@@ -170,7 +169,7 @@ router.post('/team/member/change-password/:id',(req,res)=>{
             console.log("password changed");
         else
             console.log("password unchanged");
-        req.session.member_passStatus=passstatus
+        req.session.member.passStatus=passstatus
         res.redirect('/team/member')
     })
 })
