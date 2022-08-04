@@ -43,18 +43,18 @@ connectDB()
 const ChatDataModel = require("./models/chatdata")
 
 
-io.on('connection', (socket) => {
-  console.log('a user connected');
-  socket.on('chat message', (msg) => {
-    console.log('message: ' + msg);
-    io.emit('chat message', msg);
+app.get('/chatwindow/:eventid/:user',(req,res)=>{
+    console.log(req.params.user)
+    res.render('members/chat',{ roomName: req.params.eventid,user:req.params.user })
+})
 
-  });
-  socket.on('disconnect', () => {
-    console.log('user disconnected');
-  });
-});
-
+io.on('connection',(socket)=>{
+  console.log("connected...");
+  socket.on('message',(room,msg)=>{
+    socket.join(room)
+      socket.to(room).emit('message',msg)
+  })
+})
 
 
 server.listen(PORT,()=>{

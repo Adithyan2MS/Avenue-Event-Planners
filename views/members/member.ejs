@@ -178,7 +178,7 @@ style="background-repeat: no-repeat; background-position: center top; background
                     <% for(var i=0; i<event.length; i++) {%>
                         <div class="me text-center border border-info ">
                             <%= event[i].eventType %> Event on <%= event[i].date %> 
-                            <!-- <a href="/chatwindow" class="btn bg-success text-white">chat</a> -->
+                            <a href="/chatwindow/<%= event[i]._id %>/<%= member.name %>  " class="btn bg-success text-white">chat</a>
                         </div>
                      <% } %>
                 

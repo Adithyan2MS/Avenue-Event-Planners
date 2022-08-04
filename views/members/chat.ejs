@@ -1,230 +1,158 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css"
-        integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
-    <title>ChatCord App</title>
-</head>
-
 <style>
-    @import url('https://fonts.googleapis.com/css?family=Roboto&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
 
-    :root {
-        --dark-color-a: #667aff;
-        --dark-color-b: #7386ff;
-        --light-color: #e6e9ff;
-        --success-color: #5cb85c;
-        --error-color: #d9534f;
+    * {
+        padding: 0;
+        margin: 0;
+        box-sizing: border-box;
     }
 
-    /* Chat Page */
-
-    .chat-container {
-        max-width: 1100px;
-        background: #fff;
-        margin: 30px auto;
-        overflow: hidden;
+    body {
+        align-items: center;
+        justify-content: center;
+        min-height: 100vh;
+        background: #d6d2d2;
+        font-family: 'Roboto', sans-serif;
     }
 
-    .chat-header {
-        background: var(--dark-color-a);
-        color: #fff;
-        border-top-left-radius: 5px;
-        border-top-right-radius: 5px;
-        padding: 15px;
+    section.chat__section {
+        width: 800px;
+        max-width: 90%;
+        background: rgb(124, 120, 120);
+        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    }
+
+    .brand {
+        padding: 20px;
+        background: #201f1f;
         display: flex;
         align-items: center;
-        justify-content: space-between;
     }
 
-    .chat-main {
-        display: grid;
-        grid-template-columns: 1fr 3fr;
-    }
-
-    .chat-sidebar {
-        background: var(--dark-color-b);
-        color: #fff;
-        padding: 20px 20px 60px;
-        overflow-y: scroll;
-    }
-
-    .chat-sidebar h2 {
+    .brand h1 {
+        text-transform: uppercase;
         font-size: 20px;
-        background: rgba(0, 0, 0, 0.1);
-        padding: 10px;
-        margin-bottom: 20px;
+        color: rgb(28, 192, 115);
+        margin-left: 10px;
     }
 
-    .chat-sidebar h3 {
-        margin-bottom: 15px;
-    }
-
-    .chat-sidebar ul li {
-        padding: 10px 0;
-    }
-
-    .chat-messages {
-        padding: 30px;
-        max-height: 500px;
-        overflow-y: scroll;
-    }
-
-    .chat-messages .message {
-        padding: 10px;
-        margin-bottom: 15px;
-        background-color: var(--light-color);
-        border-radius: 5px;
-        overflow-wrap: break-word;
-    }
-
-    .chat-messages .message .meta {
-        font-size: 15px;
-        font-weight: bold;
-        color: var(--dark-color-b);
-        opacity: 0.7;
-        margin-bottom: 7px;
-    }
-
-    .chat-messages .message .meta span {
-        color: #777;
-    }
-
-    .chat-form-container {
-        padding: 20px 30px;
-        background-color: var(--dark-color-a);
-    }
-
-    .chat-form-container form {
+    .message__area {
+        height: 500px;
+        padding: 16px;
         display: flex;
+        flex-direction: column;
+        overflow-y: auto;
+        padding-top: 40px;
     }
 
-    .chat-form-container input[type='text'] {
+    textarea {
+        width: 100%;
+        border: none;
+        padding: 20px;
         font-size: 16px;
-        padding: 5px;
-        height: 40px;
-        flex: 1;
+        outline: none;
+        background: #FBFBFB;
     }
 
-    /* Join Page */
-    .join-container {
-        max-width: 500px;
-        margin: 80px auto;
+    .message {
+        padding: 20px;
+        border-radius: 4px;
+        margin-bottom: 40px;
+        max-width: 300px;
+        position: relative;
+    }
+
+    .incoming {
+        background: #e0c52d;
         color: #fff;
     }
 
-    .join-header {
-        text-align: center;
-        padding: 20px;
-        background: var(--dark-color-a);
-        border-top-left-radius: 5px;
-        border-top-right-radius: 5px;
+    .outgoing {
+        background: #f1ef4ee7;
+        color: #787986;
+        margin-left: auto;
     }
 
-    .join-main {
-        padding: 30px 40px;
-        background: var(--dark-color-b);
+    .message h4 {
+        position: absolute;
+        top: -20px;
+        left: 0;
+        color: #333;
+        font-size: 14px;
     }
-
-    .join-main p {
-        margin-bottom: 20px;
-    }
-
-    .join-main .form-control {
-        margin-bottom: 20px;
-    }
-
-    .join-main label {
-        display: block;
-        margin-bottom: 5px;
-    }
-
-    .join-main input[type='text'] {
-        font-size: 16px;
-        padding: 5px;
-        height: 40px;
-        width: 100%;
-    }
-
-    .join-main select {
-        font-size: 16px;
-        padding: 5px;
-        height: 40px;
-        width: 100%;
-    }
-
-    .join-main .btn {
-        margin-top: 20px;
-        width: 100%;
-    }
-
-    @media (max-width: 700px) {
-        .chat-main {
-            display: block;
-        }
-
-        .chat-sidebar {
-            display: none;
+    @media only screen and (max-width:767px) 
+    {
+        .chat_section{
+            margin-top: 150px;
         }
     }
-    #messages { list-style-type: none; margin: 0; padding: 0; }
-      #messages > li { padding: 0.5rem 1rem; }
-      #messages > li:nth-child(odd) { background: #efefef; }
-
 </style>
 
-<body>
-    <div class="chat-container">
-        <header class="chat-header">
-            <h1><i class="fas fa-smile"></i> ChatCord</h1>
-            <a id="leave-btn" class="btn">Leave Room</a>
-        </header>
-        <main class="chat-main">
-            <div class="chat-sidebar">
-                <h3><i class="fas fa-comments"></i> Room Name:</h3>
-                <h2 id="room-name"></h2>
-                <h3><i class="fas fa-users"></i> Users</h3>
-                <ul id="users"></ul>
+
+<section class="chat_section bg-white">
+    <div class="container col-md-6">
+        <div class="brand">
+            <div class="text-center ">
+                <h1 class="border border-success text-warning">AVENUE</h1>
             </div>
-            <ul class="messages"></ul>
-        </main>
-        <div class="chat-form-container">
-            <form id="chat-form">
-                <input id="msg" type="text" placeholder="Enter Message" required autocomplete="off" />
-                <button class="btn"><i class="fas fa-paper-plane"></i> Send</button>
-            </form>
+            <h1>Chat</h1>
+        </div>
+        <div class="message__area border border-dark"></div>
+        <div class="">
+            <textarea class=" border border-success" id="textarea" cols="30" rows="1" placeholder="write a message"></textarea>
         </div>
     </div>
+</section>
+<script src="/socket.io/socket.io.js"></script>
+<script>
+    const socket = io()
+    let roomName = "<%= roomName %>"
+    let name = "<%= user %>"
+    let textarea = document.querySelector('#textarea')
+    let messageArea = document.querySelector(".message__area")
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/qs/6.9.2/qs.min.js"
-        integrity="sha256-TDxXjkAUay70ae/QJBEpGKkpVslXaHHayklIVglFRT4=" crossorigin="anonymous"></script>
-    <script src="/socket.io/socket.io.js"></script>
-    <script defer>
-        var socket = io();
-        var messages = document.getElementById('messages');
-        var form = document.getElementById('chat-form');
-        var input = document.getElementById('msg');
+    textarea.addEventListener('keyup', (e) => {
+        if (e.key === 'Enter') {
+            sendMessage(e.target.value)
+        }
+    })
 
-        form.addEventListener('submit', function (e) {
-            e.preventDefault();
-            if (input.value) {
-                socket.emit('chat message', input.value);
-                input.value = '';
-            }
-        });
-        
-        socket.on('chat message', function (msg) {
-            console.log("da"+msg)
-            var item = document.createElement('li');
-            item.textContent = msg;
-            document.querySelector('.messages').appendChild(item);
-            window.scrollTo(0, document.body.scrollHeight);
-        });
-    </script>
+    function sendMessage(message) {
+        let msg = {
+            user: name,
+            message: message.trim()
+        }
+        //Append
+        appendMessage(msg, 'outgoing')
+        textarea.value = ''
+        scrollToBottum()
+        //send to server
 
-</body>
+        socket.emit('message', roomName, msg)
+    }
 
-</html>
+    function appendMessage(msg, type) {
+        let mainDiv = document.createElement('div')
+        let className = type
+        mainDiv.classList.add(className, 'message')
+
+
+        let markup = `
+                <h4>${msg.user}</h4>
+                <p>${msg.message}</p>
+            `
+        mainDiv.innerHTML = markup
+        messageArea.appendChild(mainDiv)
+    }
+
+    //recieve message
+
+    socket.on('message', (msg) => {
+        appendMessage(msg, 'incoming')
+        scrollToBottum()
+    })
+
+    function scrollToBottum() {
+        messageArea.scrollTop = messageArea.scrollHeight
+    }
+</script>

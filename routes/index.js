@@ -5,6 +5,8 @@ const router = express.Router()
 const sendMail = require('../services/emailService')
 
 var userhelper = require('../helpers/user-helper')
+const UserDetailModel = require("../models/userdetails")
+
 
 
 const verifyuserLogin=(req,res,next)=>{
@@ -125,9 +127,7 @@ router.get('/team/member/memberLogout',(req,res)=>{
     req.session.memberLoginErr=false
     res.redirect('/team')
 })
-router.get('/chatwindow',(req,res)=>{
-    res.render('members/chat')
-})
+
 router.post('/member/login',(req,res)=>{
     userhelper.doMemberLogin(req.body).then((response)=>{
         if(response.status){
@@ -183,6 +183,10 @@ router.post('/team/member/change-image/:id',(req,res)=>{
             console.log(err)
         }
     })
+})
+router.get('/my-profile',verifyuserLogin,async(req,res)=>{
+    let user=req.session.user
+    res.render('user/my-profile',{user})
 })
 
 
