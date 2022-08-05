@@ -1,33 +1,20 @@
 const mongoose = require('mongoose')
 
 const chatDataSchema  = new mongoose.Schema({
-    conversation_id:{
+    roomId:{
         type:String,
         required:true
     },
-    time:{
-        type:String,
-        required:true
-    },
-    members:[{
-        type:String,
-        required:true
-    }],
     messages:[
         {
-            sender:{
-                type:String,
-                required:true
+        user:{
+            type:String,
+            required:true,
             },
-            message:{
-                type:String,
-                required:true
-            },
-            timestamp:{
-                type:String,
-                required:true
+        message:{
+            type:String,
+            required:true,
             }
-
         }
     ]
 })

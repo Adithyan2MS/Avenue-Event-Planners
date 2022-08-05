@@ -50,9 +50,39 @@ app.get('/chatwindow/:eventid/:user',(req,res)=>{
 
 io.on('connection',(socket)=>{
   console.log("connected...");
-  socket.on('message',(room,msg)=>{
+  socket.on('message',async(room,msg)=>{
+    let result = await ChatDataModel.findOne({"roomId":room})
+    if(!result){
+      let chatdata={
+        roomId:room,
+        messages:[{
+          user:msg.user,
+          message:msg.message
+        }]
+      }
+      var chatModel = new ChatDataModel(chatdata)
+      await chatModel.save((err,data)=>{
+          if(err){
+              console.error(err);
+          }
+          else{
+              console.log("data added");
+          }
+      })   
+    }else{
+      let msgdata={
+        user:msg.user,
+        message:msg.message
+      }
+      await ChatDataModel
+        .updateOne({roomId:room},
+        {
+            $push:{messages:msgdata}
+        })
+    }
+    let out = await ChatDataModel.findOne({roomId:room})
     socket.join(room)
-      socket.to(room).emit('message',msg)
+    socket.to(room).emit('message',msg)
   })
 })
 

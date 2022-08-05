@@ -186,7 +186,9 @@ router.post('/team/member/change-image/:id',(req,res)=>{
 })
 router.get('/my-profile',verifyuserLogin,async(req,res)=>{
     let user=req.session.user
-    res.render('user/my-profile',{user})
+    userhelper.getUsersAcceptedEvent(user).then((event)=>{
+        res.render('user/my-profile',{user,event}) 
+    })
 })
 
 

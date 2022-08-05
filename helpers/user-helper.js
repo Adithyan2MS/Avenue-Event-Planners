@@ -132,6 +132,12 @@ module.exports={
             resolve(event)
         })
     },
+    getUsersAcceptedEvent:(user)=>{
+        return new Promise(async(resolve,reject)=>{
+            let event = await AcceptedEventModel.find({userid:ObjectId(user._id)})
+            resolve(event)
+        })
+    },
     getMember:(memId)=>{
         return new Promise(async(resolve,reject)=>{
             await MemberDetailModel.findOne({_id:memId}).then((member)=>{

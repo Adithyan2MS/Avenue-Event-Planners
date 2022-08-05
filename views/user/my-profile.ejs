@@ -118,7 +118,7 @@
 
 </style>
 
-<section class="memberHeader"
+<section class="userHeader"
 style="background-repeat: no-repeat; background-position: center top; background-size: cover; height: 300px;">
 <div class="container">
   <div class="row text-dark">
@@ -142,12 +142,33 @@ style="background-repeat: no-repeat; background-position: center top; background
         </div>
         <div class="media-body mb-5">
           <div class="mt-0 mb-0 " style="font-size:larger;"><b><%= user.name %></b> </div>
-      </div> 
+        </div> 
       </div>
     </div>
   </div>
 </div>
 </section> 
+<section class="below-section">
+  <div class="container">
+      <div class="row">
+          <div class="col-md-6">
+              <div class="h2 text-center text-danger">My Events</div>
+                  <% for(var i=0; i<event.length; i++) {%>
+                    <a href="/chatwindow/<%= event[i]._id %>/<%= user.name %> " class="" style="text-decoration: none;">
+                      <div class="me text-center border border-info ">
+                          <%= event[i].eventType %> Event on <%= event[i].date %> 
+                      </div>
+                    </a>
+                  <% } %>
+          </div>
+          <div class="col-md-6 verticalLine edit-profile-container">
+              <div>
+                <div class="h3 text-center">Edit Profile</div>
+              </div>
+          </div>
+      </div>
+  </div>
+</section>
   
   
 

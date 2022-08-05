@@ -11410,7 +11410,12 @@ p {
   height: 200px;
 }
 .memberHeader{
-  background-image: url("../images/memberbanner.png");
+  background-image: url("../images/memberprofile-banner2.jpg");
+  position: relative;
+  height: 200px;
+}
+.userHeader{
+  background-image: url("../images/user-banner1.png");
   position: relative;
   height: 200px;
 }
