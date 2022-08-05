@@ -4,6 +4,8 @@ const AcceptedEventModel = require("../models/acceptedEvent")
 const UserDetailModel = require("../models/userdetails")
 const MemberDetailModel = require("../models/memberdetails")
 const PortfolioDetailModel = require("../models/portfoliodetails")
+const ChatDataModel = require("../models/chatdata")
+
 
 
 
@@ -262,6 +264,9 @@ module.exports={
         return new Promise((resolve,reject)=>{
             let msg;
             AcceptedEventModel.deleteOne({_id:ObjectId(id)}).then(()=>{
+                ChatDataModel.deleteOne({roomId:id}).then(()=>{
+                    console.log("chat deleted..");
+                })
                 msg="deleted"
                 resolve(msg)
             })

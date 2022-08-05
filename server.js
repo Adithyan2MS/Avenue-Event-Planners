@@ -40,52 +40,43 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 const connectDB = require('./config/db')
 connectDB()
+
+//chat implementation.... 
+
 const ChatDataModel = require("./models/chatdata")
 
 
-app.get('/chatwindow/:eventid/:user',(req,res)=>{
-    console.log(req.params.user)
+app.get('/chatwindow/:eventid/:user',async(req,res)=>{
     res.render('members/chat',{ roomName: req.params.eventid,user:req.params.user })
 })
 
 io.on('connection',(socket)=>{
   console.log("connected...");
-  socket.on('message',async(room,msg)=>{
+  socket.on('join',async(room)=>{
     let result = await ChatDataModel.findOne({"roomId":room})
     if(!result){
-      let chatdata={
-        roomId:room,
-        messages:[{
-          user:msg.user,
-          message:msg.message
-        }]
-      }
-      var chatModel = new ChatDataModel(chatdata)
-      await chatModel.save((err,data)=>{
-          if(err){
-              console.error(err);
-          }
-          else{
-              console.log("data added");
-          }
-      })   
-    }else{
-      let msgdata={
-        user:msg.user,
-        message:msg.message
-      }
-      await ChatDataModel
-        .updateOne({roomId:room},
-        {
-            $push:{messages:msgdata}
-        })
+      await ChatDataModel.create({"roomId":room,messages:[]})
     }
-    let out = await ChatDataModel.findOne({roomId:room})
+    result = await ChatDataModel.findOne({"roomId":room})
     socket.join(room)
+    socket.emit("joined",room,result)
+    socket.activeRoom=room
+  })
+  socket.on('message',async(room,msg)=>{
+   let msgdata={
+     user:msg.user,
+     message:msg.message
+   }
+   await ChatDataModel
+     .updateOne({roomId:room},
+     {
+         $push:{messages:msgdata}
+     })
     socket.to(room).emit('message',msg)
   })
 })
 
+//chat implementation.... 
 
 server.listen(PORT,()=>{
     console.log(`Listening on port ${PORT}`)

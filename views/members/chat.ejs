@@ -97,7 +97,9 @@
             </div>
             <h1>Chat</h1>
         </div>
-        <div class="message__area border border-dark"></div>
+        <div class="message__area border border-dark">
+            
+        </div>
         <div class="">
             <textarea class=" border border-success" id="textarea" cols="30" rows="1" placeholder="write a message"></textarea>
         </div>
@@ -111,6 +113,18 @@
     let textarea = document.querySelector('#textarea')
     let messageArea = document.querySelector(".message__area")
     
+    socket.emit("join",roomName)
+    socket.on("joined",(roomName,data)=>{
+        console.log("hee"+data.messages);
+        for (let i = 0; i < data.messages.length; i++) {
+            if (data.messages[i].user==name) {
+                appendMessage(data.messages[i], 'outgoing')
+            } else {
+                appendMessage(data.messages[i], 'incoming')
+            }
+        }
+        scrollToBottum()
+    })
 
     textarea.addEventListener('keyup', (e) => {
         if (e.key === 'Enter') {
